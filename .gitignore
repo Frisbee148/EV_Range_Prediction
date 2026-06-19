@@ -1,0 +1,33 @@
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual Environments
+venv/
+env/
+
+# Large Datasets & Models (GitHub blocks >100MB)
+*.pkl
+*.onnx.data
+*.pth
+*.onnx
+
+# Journal & Reviewer Documents (Keep these private/local)
+*.pdf
+*.docx
+*.zip
+
+# Temporary/Scratch text files
+docx_content*.txt
+response_format.txt
+temp_response.txt
+ablation_study_results.txt
+real_ablation_results.txt
+
+# Scratch/Helper Scripts
+extracted_code.py
+extracted_model_code.py
+generate_response.py
+generate_response_doc.py
+read_model.py
