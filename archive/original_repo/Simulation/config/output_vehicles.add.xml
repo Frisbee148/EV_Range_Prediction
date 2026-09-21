@@ -1,0 +1,27 @@
+<additional>
+    <!-- 
+      This file gives specific instructions to SUMO.
+      Even though data logging is off globally, we turn it ON for these 3 vehicles.
+    -->
+
+    <!-- You can change "1", "13", and "22" to any vehicle IDs from your route file. -->
+
+    <vehicle id="1">
+        <param key="has.battery.device" value="true"/>
+        <param key="has.fcd.device" value="true"/>
+        <param key="has.emission.device" value="true"/>
+    </vehicle>
+
+    <vehicle id="13">
+        <param key="has.battery.device" value="true"/>
+        <param key="has.fcd.device" value="true"/>
+        <param key="has.emission.device" value="true"/>
+    </vehicle>
+
+    <vehicle id="22">
+        <param key="has.battery.device" value="true"/>
+        <param key="has.fcd.device" value="true"/>
+        <param key="has.emission.device" value="true"/>
+    </vehicle>
+
+</additional>

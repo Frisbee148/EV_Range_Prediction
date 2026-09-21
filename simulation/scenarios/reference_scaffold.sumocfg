@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reference-repo scaffold only. Network is FLAT (no z). Prefer MoST for training. -->
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="../networks/map_with_tls.net.xml"/>
+        <route-files value="../routes/ev_route_new1.rou.xml"/>
+        <additional-files value="../vehicles/ev_types.add.xml"/>
+    </input>
+
+    <output>
+        <battery-output value="../../data/raw/sumo_scaffold/battery.xml"/>
+        <battery-output.precision value="6"/>
+        <tripinfo-output value="../../data/raw/sumo_scaffold/tripinfo.xml"/>
+        <summary-output value="../../data/raw/sumo_scaffold/summary.xml"/>
+        <fcd-output value="../../data/raw/sumo_scaffold/fcd.xml"/>
+        <fcd-output.geo value="true"/>
+        <emission-output value="../../data/raw/sumo_scaffold/emissions.xml"/>
+    </output>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.64"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+        <step-length value="1.0"/>
+    </time>
+
+</configuration>

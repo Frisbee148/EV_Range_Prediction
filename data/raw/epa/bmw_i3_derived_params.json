@@ -1,0 +1,15 @@
+[
+  {
+    "model_year": "2016",
+    "model": "I3 BEV",
+    "etw_lb": 3125.0,
+    "mass_kg_etw": 1417.5,
+    "target_A_lbf": 22.9,
+    "target_B_lbf_per_mph": 0.346,
+    "target_C_lbf_per_mph2": 0.01626,
+    "C_rr_derived": 0.00733,
+    "CdA_m2_derived": 0.5909,
+    "provenance": "DERIVED from EPA 2016 Test Car List target coefficients",
+    "source": "https://www.epa.gov/compliance-and-fuel-economy-data/data-cars-used-testing-fuel-economy"
+  }
+]

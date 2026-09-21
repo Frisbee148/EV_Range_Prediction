@@ -1,0 +1,76 @@
+# Four EV configs — BMW i3 filled from EPA; others TBD.
+# Provenance tiers: SOURCED | DERIVED | ASSUMED (PRD §8.2)
+
+constants:
+  g: 9.81          # m/s^2
+  rho: 1.225       # kg/m^3 at 20 C sea level
+
+vehicles:
+  bmw_i3_60ah:
+    display_name: "BMW i3 60 Ah (2016 BEV)"
+    role: "Tier A anchor — real TUM telemetry available"
+    mass_kg:
+      value: 1417.5
+      note: "EPA Equivalent Test Weight 3125 lb (includes test inertia, not kerb-only)"
+      tier: SOURCED
+      citation: "EPA 2016 Test Car List — I3 BEV"
+    # Optional alternate: kerb ~1245 kg + 75 kg driver = 1320 kg [SOURCED literature]
+    kerb_mass_kg:
+      value: 1245
+      tier: SOURCED
+      citation: "Published BMW i3 60 Ah kerb weight (literature)"
+    drag_area_m2:
+      value: 0.5909
+      note: "Cd·A = 2*C/rho from EPA target-C"
+      tier: DERIVED
+      citation: "EPA 2016 target-C = 0.01626 lbf/mph^2"
+    # If Cd and A needed separately for SUMO device:
+    drag_coefficient:
+      value: 0.29
+      tier: ASSUMED
+      citation: "Split of Cd·A; frontal area adjusted to match DERIVED Cd·A"
+    frontal_area_m2:
+      value: 2.038
+      note: "0.5909 / 0.29"
+      tier: DERIVED
+    rolling_resistance:
+      value: 0.00733
+      note: "C_rr = A/(m*g) from EPA target-A; B term absorbed into C_rr documentation"
+      tier: DERIVED
+      citation: "EPA 2016 target-A = 22.9 lbf"
+    battery_capacity_kwh:
+      value: 18.8
+      note: "Usable; nominal pack ~22 kWh / 60 Ah"
+      tier: SOURCED
+      citation: "BMW i3 60 Ah usable capacity (literature / ev-database)"
+    drivetrain_efficiency:
+      value: 0.90
+      tier: ASSUMED
+    regen_efficiency:
+      value: 0.70
+      tier: ASSUMED
+    regen_power_max_kw:
+      value: 50.0
+      tier: ASSUMED
+    aux_power_kw:
+      value: 0.5
+      tier: ASSUMED
+    rotating_mass_factor:
+      value: 1.04
+      tier: ASSUMED
+    epa_target_coefficients:
+      A_lbf: 22.9
+      B_lbf_per_mph: 0.346
+      C_lbf_per_mph2: 0.01626
+      source_file: data/raw/epa/bmw_i3_derived_params.json
+
+  # Placeholders — fill from EPA Test Car List before training
+  vehicle_2:
+    display_name: "TBD (compact EV)"
+    status: placeholder
+  vehicle_3:
+    display_name: "TBD (midsize EV)"
+    status: placeholder
+  vehicle_4:
+    display_name: "TBD (crossover EV)"
+    status: placeholder

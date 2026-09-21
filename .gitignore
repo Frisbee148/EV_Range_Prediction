@@ -1,33 +1,63 @@
-# Python Cache
+# Python
 __pycache__/
 *.pyc
 *.pyo
-
-# Virtual Environments
+.venv/
 venv/
 env/
 
-# Large Datasets & Models (GitHub blocks >100MB)
+# Models / binaries
 *.pkl
 *.onnx.data
 *.pth
 *.onnx
 
-# Journal & Reviewer Documents (Keep these private/local)
+# Secrets
+.kaggle/
+**/kaggle.json
+.env
+
+# Large / redistributable-restricted raw data (keep provenance + small derived files)
+data/raw/tum_bmw_i3/**/*.csv
+data/raw/tum_bmw_i3/aggregated_trips/
+data/raw/tum_bmw_i3/Overview.xlsx
+data/raw/sumo_scenarios/LuST/
+data/raw/sumo_scenarios/MoST/
+data/raw/sumo_scenarios/*.zip
+data/raw/argonne_d3/**
+!data/raw/argonne_d3/.gitkeep
+data/raw/epa/vehicles.csv
+data/raw/epa/*.xlsx
+data/raw/epa/*.csv
+!data/raw/epa/bmw_i3_derived_params.json
+data/raw/sumo_scaffold/
+
+# Archived reference CSVs / weights (too large; notebooks + XMLs stay tracked)
+archive/original_repo/Simulation/**/*.csv
+archive/original_repo/Simulation/output/
+archive/original_repo/Scripts/*.pth
+archive/original_repo/Scripts/*.pkl
+archive/original_repo/Scripts/plots/
+archive/original_repo/Scripts/ev_pinn_plots/
+
+# Experiment outputs
+experiments/*/
+!experiments/.gitkeep
+models/checkpoints/**
+models/scalers/**
+results/metrics/**
+results/plots/**
+results/tables/**
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Private scratch
 *.pdf
 *.docx
 *.zip
-
-# Temporary/Scratch text files
 docx_content*.txt
 response_format.txt
 temp_response.txt
-ablation_study_results.txt
-real_ablation_results.txt
-
-# Scratch/Helper Scripts
-extracted_code.py
-extracted_model_code.py
-generate_response.py
-generate_response_doc.py
-read_model.py

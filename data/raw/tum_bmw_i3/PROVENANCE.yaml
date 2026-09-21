@@ -1,0 +1,19 @@
+# Dataset provenance — Tier A (TUM BMW i3)
+
+dataset: Battery and Heating Data in Real Driving Cycles
+authors:
+  - Matthias Steinstraeter (TUM Institute of Automotive Technology)
+  - Johannes Buberger
+  - Dimitar Trifonov
+doi: "10.21227/6jr9-5235"
+ieee_dataport: "https://ieee-dataport.org/open-access/battery-and-heating-data-real-driving-cycles"
+kaggle: "https://www.kaggle.com/datasets/atechnohazard/battery-and-heating-data-in-real-driving-cycles"
+local_mirror_note: >
+  Files under data/raw/tum_bmw_i3/ were obtained from a public GitHub re-host of the
+  Kaggle CSVs (felineR/electricVehicleConsumptionAnalysis, 70 trips). Prefer citing
+  the IEEE DOI. Re-fetch via scripts/download_tum_kaggle.sh when Kaggle credentials
+  are available.
+vehicle: BMW i3 (60 Ah)
+trips_local: 70
+license_note: Check IEEE DataPort / Kaggle terms before redistribution; do not commit
+  large raw CSVs to GitHub if license or size forbids it.

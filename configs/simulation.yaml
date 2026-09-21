@@ -1,0 +1,14 @@
+# SUMO / scenario config — prefer MoST (elevation). Reference scaffold is flat.
+preferred_network: most
+most:
+  root: data/raw/sumo_scenarios/MoST/scenario
+  note: "Has elevation; morning peak only"
+reference_scaffold:
+  sumocfg: simulation/scenarios/reference_scaffold.sumocfg
+  elevation: false
+  use_for_training: false
+dt_s: 1.0
+scenarios:
+  - urban
+  - arterial
+  - highway

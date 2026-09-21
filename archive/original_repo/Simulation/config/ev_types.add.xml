@@ -1,0 +1,36 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+  <vType id="bmw_i3" vClass="passenger"
+         accel="2.6" decel="4.5" sigma="0.2"
+         maxSpeed="50" length="4.0"
+         guiShape="passenger"
+
+         emissionClass="Energy/unknown"
+         color="0,128,255"
+         mass="1320">
+         
+    <!-- Battery / energy configuration -->
+    <param key="device.battery.probability" value="1.0"/>
+    <param key="device.battery.trackFuel" value="true"/>
+    <param key="device.battery.capacity" value="42200"/>  <!-- Wh -->
+    <param key="device.battery.maximumPower" value="125000"/>  <!-- W -->
+    <param key="device.battery.chargeLevel" value="35000"/>     <!-- initial Wh -->
+    
+    <!-- Aerodynamics and rolling -->
+    <param key="airDragCoefficient" value="0.29"/>
+    <param key="frontSurfaceArea" value="2.5"/>
+    <param key="rollDragCoefficient" value="0.01"/>
+    
+    <!-- Efficiencies -->
+    <param key="propulsionEfficiency" value="0.85"/>
+    <param key="recuperationEfficiency" value="0.7"/>
+    <param key="constantPowerIntake" value="1500"/>  <!-- 1.5 kW aux -->
+    
+    <!-- Logging devices -->
+    <param key="device.fcd.probability" value="1.0"/>
+    <param key="device.emissions.probability" value="1.0"/>
+
+  </vType>
+
+</additional>
