@@ -1,8 +1,8 @@
 # Archive — original reference repository
 
-Everything under this directory comes from the cloned reference repo
-(`Frisbee148/EV-Range-prediction-using-PINNS-ref`, itself derived from
-`kamaladhi/EV-Range-prediction-...` / Jeevakamal K R). License: MIT.
+Everything under this directory comes from an upstream MIT-licensed
+reference implementation (single-vehicle PINN + SUMO notebooks). License: MIT
+(see root `LICENSE` and upstream notices in this folder).
 
 ## Why it is archived
 

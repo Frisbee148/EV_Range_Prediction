@@ -30,6 +30,9 @@ data/raw/epa/vehicles.csv
 data/raw/epa/*.xlsx
 data/raw/epa/*.csv
 !data/raw/epa/bmw_i3_derived_params.json
+!data/raw/epa/ford_focus_ev_2016_derived_params.json
+!data/raw/epa/chevy_bolt_ev_2023_derived_params.json
+!data/raw/epa/tesla_model_x_75d_2016_derived_params.json
 data/raw/sumo_scaffold/
 
 # Archived reference CSVs / weights (too large; notebooks + XMLs stay tracked)
@@ -48,6 +51,9 @@ models/scalers/**
 results/metrics/**
 results/plots/**
 results/tables/**
+
+# Local agent / editor state
+.omc/
 
 # OS / editor
 .DS_Store
