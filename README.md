@@ -35,21 +35,20 @@ Argonne D3 is manual — see `docs/data_acquisition.md`.
 ## Layout
 
 ```text
-configs/          vehicles.yaml (BMW i3 filled from EPA; 3 placeholders)
+configs/          vehicles.yaml (four EPA-backed EV configs; see docs/)
 simulation/       kept SUMO XMLs (scaffold)
 src/              physics / data / models / losses / training / evaluation
 data/raw/         Tier A–C inputs
 archive/          original reference repo (CSVs, notebooks, checkpoints)
-docs/             data_acquisition.md, assumptions (TBD)
+docs/             data_acquisition.md, finalized_vehicle_models_report.md
 PRD.md            full specification
 ```
 
 ## Next implementation steps
 
 1. Implement `(E1)`–`(E11)` in `src/physics/` and validate on one TUM trip vs `I×V`
-2. Complete four vehicles in `configs/vehicles.yaml` from EPA
-3. Build MoST-based multi-vehicle dataset (PRD §9–§10)
-4. Extract LSTM/preprocess logic from `archive/original_repo/Scripts/`
+2. Build MoST-based multi-vehicle dataset (PRD §9–§10)
+3. Extract LSTM/preprocess logic from `archive/original_repo/Scripts/`
 
 ## License
 
