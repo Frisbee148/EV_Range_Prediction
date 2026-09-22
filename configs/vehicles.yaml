@@ -1,5 +1,5 @@
-# Four EV configs — BMW i3 filled from EPA; others TBD.
-# Provenance tiers: SOURCED | DERIVED | ASSUMED (PRD §8.2)
+# Four EV configs — EPA Test Car List + provenance (PRD §8)
+# Tiers: SOURCED | DERIVED | ASSUMED
 
 constants:
   g: 9.81          # m/s^2
@@ -8,69 +8,241 @@ constants:
 vehicles:
   bmw_i3_60ah:
     display_name: "BMW i3 60 Ah (2016 BEV)"
-    role: "Tier A anchor — real TUM telemetry available"
+    role: "PRD V1 — small / light / small battery; Tier A TUM anchor"
+    d3_vehicle_id: bmw_i3_2014
     mass_kg:
       value: 1417.5
-      note: "EPA Equivalent Test Weight 3125 lb (includes test inertia, not kerb-only)"
+      note: "EPA Equivalent Test Weight 3125 lb"
       tier: SOURCED
       citation: "EPA 2016 Test Car List — I3 BEV"
-    # Optional alternate: kerb ~1245 kg + 75 kg driver = 1320 kg [SOURCED literature]
     kerb_mass_kg:
       value: 1245
       tier: SOURCED
       citation: "Published BMW i3 60 Ah kerb weight (literature)"
     drag_area_m2:
       value: 0.5909
-      note: "Cd·A = 2*C/rho from EPA target-C"
       tier: DERIVED
       citation: "EPA 2016 target-C = 0.01626 lbf/mph^2"
-    # If Cd and A needed separately for SUMO device:
     drag_coefficient:
       value: 0.29
       tier: ASSUMED
-      citation: "Split of Cd·A; frontal area adjusted to match DERIVED Cd·A"
+      citation: "Cd split; A = CdA/Cd"
     frontal_area_m2:
       value: 2.038
-      note: "0.5909 / 0.29"
       tier: DERIVED
+      citation: "0.5909 / 0.29"
     rolling_resistance:
       value: 0.00733
-      note: "C_rr = A/(m*g) from EPA target-A; B term absorbed into C_rr documentation"
       tier: DERIVED
-      citation: "EPA 2016 target-A = 22.9 lbf"
+      citation: "EPA 2016 target-A = 22.9 lbf; B absorbed"
     battery_capacity_kwh:
       value: 18.8
-      note: "Usable; nominal pack ~22 kWh / 60 Ah"
+      note: "Usable; nominal pack ~22 kWh"
       tier: SOURCED
-      citation: "BMW i3 60 Ah usable capacity (literature / ev-database)"
+      citation: "BMW i3 60 Ah usable capacity (literature)"
     drivetrain_efficiency:
       value: 0.90
       tier: ASSUMED
+      citation: "PRD §8.2 midpoint [0.85, 0.93]"
     regen_efficiency:
-      value: 0.70
+      value: 0.65
       tier: ASSUMED
+      citation: "PRD §8.2 midpoint [0.60, 0.70]"
     regen_power_max_kw:
       value: 50.0
       tier: ASSUMED
     aux_power_kw:
       value: 0.5
       tier: ASSUMED
+      citation: "Calibrate vs TUM HVAC when possible"
     rotating_mass_factor:
       value: 1.04
       tier: ASSUMED
+      citation: "PRD §8.2 default"
     epa_target_coefficients:
       A_lbf: 22.9
       B_lbf_per_mph: 0.346
       C_lbf_per_mph2: 0.01626
       source_file: data/raw/epa/bmw_i3_derived_params.json
+    sumo:
+      max_speed_mps: 33.3
+      accel_mps2: 3.5
+      decel_mps2: 4.5
+      sigma: 0.5
 
-  # Placeholders — fill from EPA Test Car List before training
-  vehicle_2:
-    display_name: "TBD (compact EV)"
-    status: placeholder
-  vehicle_3:
-    display_name: "TBD (midsize EV)"
-    status: placeholder
-  vehicle_4:
-    display_name: "TBD (crossover EV)"
-    status: placeholder
+  ford_focus_ev_2016:
+    display_name: "Ford Focus Electric (2016)"
+    role: "PRD V2 — compact / medium mass and energy"
+    d3_vehicle_id: ford_focus_ev_2013
+    mass_kg:
+      value: 1757.67
+      note: "EPA ETW 3875 lb; EPA model name FOCUS, fuel Electricity"
+      tier: SOURCED
+      citation: "EPA 2016 Test Car List"
+    drag_area_m2:
+      value: 0.689374
+      tier: DERIVED
+      citation: "EPA 2016 target-C = 0.01897 lbf/mph^2"
+    drag_coefficient:
+      value: 0.295
+      tier: ASSUMED
+      citation: "Focus Electric published Cd ~0.295"
+    frontal_area_m2:
+      value: 2.34
+      tier: DERIVED
+      citation: "CdA / Cd"
+    rolling_resistance:
+      value: 0.005946
+      tier: DERIVED
+      citation: "EPA 2016 target-A = 23.05 lbf"
+    battery_capacity_kwh:
+      value: 23.0
+      note: "Usable liquid-cooled pack"
+      tier: SOURCED
+      citation: "Ford Focus Electric specifications"
+    drivetrain_efficiency:
+      value: 0.90
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint"
+    regen_efficiency:
+      value: 0.65
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint"
+    regen_power_max_kw:
+      value: 80.0
+      tier: ASSUMED
+    aux_power_kw:
+      value: 0.7
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint P_aux"
+    rotating_mass_factor:
+      value: 1.04
+      tier: ASSUMED
+    epa_target_coefficients:
+      A_lbf: 23.05
+      B_lbf_per_mph: 0.3647
+      C_lbf_per_mph2: 0.01897
+      source_file: data/raw/epa/ford_focus_ev_2016_derived_params.json
+    sumo:
+      max_speed_mps: 35.8
+      accel_mps2: 3.2
+      decel_mps2: 4.5
+      sigma: 0.5
+
+  tesla_model_x_75d_2016:
+    display_name: "Tesla Model X 75D (2016)"
+    role: "PRD V3 — large / heavy / high drag area (SUV)"
+    d3_vehicle_id: null
+    mass_kg:
+      value: 2494.76
+      note: "EPA ETW 5500 lb"
+      tier: SOURCED
+      citation: "EPA 2016 Test Car List — Model X 75D"
+    drag_area_m2:
+      value: 0.777681
+      tier: DERIVED
+      citation: "EPA 2016 target-C = 0.02140 lbf/mph^2"
+    drag_coefficient:
+      value: 0.24
+      tier: ASSUMED
+      citation: "Model X literature Cd ~0.24"
+    frontal_area_m2:
+      value: 3.24
+      tier: DERIVED
+      citation: "CdA / Cd"
+    rolling_resistance:
+      value: 0.006849
+      tier: DERIVED
+      citation: "EPA 2016 target-A = 37.68 lbf"
+    battery_capacity_kwh:
+      value: 72.5
+      note: "Usable; 75 kWh nameplate class"
+      tier: SOURCED
+      citation: "Tesla Model X 75D pack (literature)"
+    drivetrain_efficiency:
+      value: 0.92
+      tier: ASSUMED
+      citation: "Upper PRD range for large EV drivetrain"
+    regen_efficiency:
+      value: 0.65
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint"
+    regen_power_max_kw:
+      value: 120.0
+      tier: ASSUMED
+    aux_power_kw:
+      value: 0.9
+      tier: ASSUMED
+      citation: "Larger SUV HVAC load"
+    rotating_mass_factor:
+      value: 1.04
+      tier: ASSUMED
+    epa_target_coefficients:
+      A_lbf: 37.68
+      B_lbf_per_mph: 0.0486
+      C_lbf_per_mph2: 0.0214
+      source_file: data/raw/epa/tesla_model_x_75d_2016_derived_params.json
+    sumo:
+      max_speed_mps: 45.0
+      accel_mps2: 2.5
+      decel_mps2: 4.0
+      sigma: 0.45
+
+  chevy_bolt_ev_2023:
+    display_name: "Chevrolet Bolt EV (2023)"
+    role: "PRD V4 — large usable battery / long range"
+    d3_vehicle_id: chevy_bolt_2020
+    mass_kg:
+      value: 1757.67
+      note: "EPA ETW 3875 lb (same ETW as Focus; distinct road-load C)"
+      tier: SOURCED
+      citation: "EPA 2023 Test Car List — BOLT EV"
+    drag_area_m2:
+      value: 0.781678
+      tier: DERIVED
+      citation: "EPA 2023 target-C = 0.02151 lbf/mph^2"
+    drag_coefficient:
+      value: 0.308
+      tier: ASSUMED
+      citation: "Bolt EV published Cd ~0.308"
+    frontal_area_m2:
+      value: 2.54
+      tier: DERIVED
+      citation: "CdA / Cd"
+    rolling_resistance:
+      value: 0.007871
+      tier: DERIVED
+      citation: "EPA 2023 target-A = 30.51 lbf"
+    battery_capacity_kwh:
+      value: 66.0
+      note: "Usable pack"
+      tier: SOURCED
+      citation: "Chevrolet Bolt EV EPA-era usable capacity"
+    drivetrain_efficiency:
+      value: 0.90
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint"
+    regen_efficiency:
+      value: 0.65
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint"
+    regen_power_max_kw:
+      value: 100.0
+      tier: ASSUMED
+    aux_power_kw:
+      value: 0.7
+      tier: ASSUMED
+      citation: "PRD §8.2 midpoint P_aux"
+    rotating_mass_factor:
+      value: 1.04
+      tier: ASSUMED
+    epa_target_coefficients:
+      A_lbf: 30.51
+      B_lbf_per_mph: 0.0152
+      C_lbf_per_mph2: 0.02151
+      source_file: data/raw/epa/chevy_bolt_ev_2023_derived_params.json
+    sumo:
+      max_speed_mps: 40.0
+      accel_mps2: 3.0
+      decel_mps2: 4.5
+      sigma: 0.5

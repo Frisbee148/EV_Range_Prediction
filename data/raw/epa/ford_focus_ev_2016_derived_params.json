@@ -1,0 +1,16 @@
+[
+  {
+    "model_year": "2016",
+    "model": "FOCUS (Focus Electric)",
+    "etw_lb": 3875.0,
+    "mass_kg_etw": 1757.670434,
+    "target_A_lbf": 23.05,
+    "target_B_lbf_per_mph": 0.3647,
+    "target_C_lbf_per_mph2": 0.01897,
+    "C_rr_derived": 0.005946,
+    "CdA_m2_derived": 0.689374,
+    "provenance": "DERIVED from EPA 2016 Test Car List target coefficients (Electricity fuel type)",
+    "source": "https://www.epa.gov/compliance-and-fuel-economy-data/data-cars-used-testing-fuel-economy",
+    "source_file": "data/raw/epa/16tstcar.csv"
+  }
+]

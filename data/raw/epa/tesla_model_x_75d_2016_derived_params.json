@@ -1,0 +1,16 @@
+[
+  {
+    "model_year": "2016",
+    "model": "Model X 75D",
+    "etw_lb": 5500.0,
+    "mass_kg_etw": 2494.758035,
+    "target_A_lbf": 37.68,
+    "target_B_lbf_per_mph": 0.0486,
+    "target_C_lbf_per_mph2": 0.0214,
+    "C_rr_derived": 0.006849,
+    "CdA_m2_derived": 0.777681,
+    "provenance": "DERIVED from EPA 2016 Test Car List target coefficients",
+    "source": "https://www.epa.gov/compliance-and-fuel-economy-data/data-cars-used-testing-fuel-economy",
+    "source_file": "data/raw/epa/16tstcar.csv"
+  }
+]
