@@ -12,6 +12,8 @@ PRD plausible ranges:
 | η_rg | 0.60 – 0.70 | 0.65 |
 | P_aux | 0.3 – 1.5 kW | 0.7 kW |
 | λ_rot | 1.03 – 1.05 | 1.04 |
+| T_comfort | — | 21 °C (PRD §6.3) |
+| k_hvac | — | 60 W/°C (PRD §6.3) |
 
 ## BMW i3 60 Ah (`bmw_i3_60ah`)
 

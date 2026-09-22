@@ -46,9 +46,8 @@ PRD.md            full specification
 
 ## Next implementation steps
 
-1. Implement `(E1)`–`(E11)` in `src/physics/` and validate on one TUM trip vs `I×V`
-2. Build MoST-based multi-vehicle dataset (PRD §9–§10)
-3. Extract LSTM/preprocess logic from `archive/original_repo/Scripts/`
+1. Build MoST-based multi-vehicle dataset (PRD §9–§10)
+2. Extract LSTM/preprocess logic from `archive/original_repo/Scripts/`
 
 ## License
 

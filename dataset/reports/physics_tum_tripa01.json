@@ -1,0 +1,32 @@
+{
+  "trip": "TripA01",
+  "vehicle_id": "bmw_i3_60ah",
+  "n": 10090,
+  "dt_s": 0.10000000000002274,
+  "duration_s": 1008.9,
+  "elevation_std_m": 5.577286170277083,
+  "p_meas_mean_w": 4599.702953389496,
+  "p_hat_mean_w": 3355.803078472336,
+  "metrics_all": {
+    "mae_w": 2389.4367411515454,
+    "rmse_w": 3021.660162530678,
+    "mape_pct_vs_1w_floor": 104.86652848432954
+  },
+  "metrics_moving_v_gt_0.5": {
+    "mae_w": 2574.7162499822443,
+    "rmse_w": 3207.4083476536853,
+    "mape_pct_vs_1w_floor": 113.18967987812316
+  },
+  "energy_meas_kwh": 1.289194522214182,
+  "energy_physics_kwh": 0.9405570294942658,
+  "energy_soc_implied_kwh": 1.015200000000003,
+  "energy_rel_error_pct": 27.04304794292284,
+  "energy_vs_soc_implied_pct": 7.352538465892138,
+  "soc_start": 0.8690000000000001,
+  "soc_end_meas": 0.815,
+  "soc_end_physics": 0.8189692615658668,
+  "range_b_defined": true,
+  "p_batt_min_w": -20895.03980850469,
+  "p_regen_max_w": 50000.0,
+  "sign": "TUM current is charge-positive; P_meas = -V*I (discharge positive)"
+}

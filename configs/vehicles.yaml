@@ -4,6 +4,14 @@
 constants:
   g: 9.81          # m/s^2
   rho: 1.225       # kg/m^3 at 20 C sea level
+  t_comfort_c: 21.0
+  k_hvac_w_per_c: 60.0
+  v_min_mps: 0.5
+  v_regen_min_mps: 5.0
+  eps: 1.0e-6
+  ema_window_s: 300.0
+  ema_init_s: 60.0
+  d_min_m: 500.0
 
 vehicles:
   bmw_i3_60ah:
