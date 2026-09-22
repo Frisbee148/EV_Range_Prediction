@@ -61,3 +61,10 @@ results/tables/**
 docx_content*.txt
 response_format.txt
 temp_response.txt
+
+# Built project dataset (regenerate via scripts/build_project_dataset.py)
+dataset/processed/**
+!dataset/processed/.gitkeep
+!dataset/README.md
+!dataset/reports/
+
