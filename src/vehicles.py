@@ -55,6 +55,10 @@ class VehicleParams:
     p_regen_max_w: float
     p_aux_base_w: float
     lambda_rot: float
+    max_speed_mps: float
+    accel_mps2: float
+    decel_mps2: float
+    sigma: float
     provenance: dict[str, dict[str, Any]]
 
 
@@ -111,6 +115,7 @@ def load_vehicle(path: Path | str, vehicle_id: str) -> VehicleParams:
         val, meta = _unwrap(block[key], f"{vehicle_id}.{key}")
         values[key] = float(val)
         provenance[key] = meta
+    sumo = block.get("sumo") or {}
     return VehicleParams(
         vehicle_id=vehicle_id,
         display_name=str(block.get("display_name", vehicle_id)),
@@ -124,6 +129,10 @@ def load_vehicle(path: Path | str, vehicle_id: str) -> VehicleParams:
         p_regen_max_w=values["regen_power_max_kw"] * KW_TO_W,
         p_aux_base_w=values["aux_power_kw"] * KW_TO_W,
         lambda_rot=values["rotating_mass_factor"],
+        max_speed_mps=float(sumo.get("max_speed_mps", 33.0)),
+        accel_mps2=float(sumo.get("accel_mps2", 2.6)),
+        decel_mps2=float(sumo.get("decel_mps2", 4.5)),
+        sigma=float(sumo.get("sigma", 0.5)),
         provenance=provenance,
     )
 

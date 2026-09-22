@@ -25,6 +25,10 @@ def _synthetic(e_kwh: float) -> VehicleParams:
         p_regen_max_w=50.0 * KW_TO_W,
         p_aux_base_w=700.0,
         lambda_rot=1.04,
+        max_speed_mps=33.0,
+        accel_mps2=2.6,
+        decel_mps2=4.5,
+        sigma=0.5,
         provenance={},
     )
 

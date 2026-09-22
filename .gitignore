@@ -68,9 +68,12 @@ docx_content*.txt
 response_format.txt
 temp_response.txt
 
-# Built project dataset (regenerate via scripts/build_project_dataset.py)
+# Built project dataset (regenerate via scripts)
 dataset/processed/**
 !dataset/processed/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+!data/splits/
 !dataset/README.md
 !dataset/reports/
 

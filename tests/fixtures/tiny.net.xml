@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<net version="1.16">
+  <edge id="e0" from="n0" to="n1" priority="1">
+    <lane id="e0_0" index="0" speed="13.0" length="200.0" shape="0.00,0.00,10.00 200.00,0.00,12.00"/>
+  </edge>
+  <edge id="e1" from="n1" to="n2" priority="1">
+    <lane id="e1_0" index="0" speed="13.0" length="200.0" shape="200.00,0.00,12.00 400.00,0.00,40.00"/>
+  </edge>
+  <edge id="e2" from="n2" to="n3" priority="1">
+    <lane id="e2_0" index="0" speed="25.0" length="400.0" shape="400.00,0.00,40.00 800.00,0.00,8.00"/>
+  </edge>
+  <edge id="e3" from="n3" to="n0" priority="1">
+    <lane id="e3_0" index="0" speed="18.0" length="400.0" shape="800.00,0.00,8.00 0.00,0.00,10.00"/>
+  </edge>
+  <connection from="e0" to="e1" fromLane="0" toLane="0"/>
+  <connection from="e1" to="e2" fromLane="0" toLane="0"/>
+  <connection from="e2" to="e3" fromLane="0" toLane="0"/>
+  <connection from="e3" to="e0" fromLane="0" toLane="0"/>
+</net>

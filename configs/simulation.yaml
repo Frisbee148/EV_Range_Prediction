@@ -8,7 +8,15 @@ reference_scaffold:
   elevation: false
   use_for_training: false
 dt_s: 1.0
+n_trips_per_vehicle_scenario: 20
+trip_duration_s: 600
+ambient_temp_c: 21.0
+seed: 42
 scenarios:
   - urban
   - arterial
   - highway
+split:
+  train: 0.70
+  val: 0.15
+  test: 0.15

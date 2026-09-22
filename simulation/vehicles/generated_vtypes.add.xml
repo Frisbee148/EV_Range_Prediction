@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+  <vType id="bmw_i3_60ah" vClass="passenger" carFollowModel="IDM" accel="3.5" decel="4.5" sigma="0.5" maxSpeed="33.3" length="4.5" mass="1417.5">
+    <param key="airDragCoefficient" value="0.29"/>
+    <param key="frontSurfaceArea" value="2.038"/>
+    <param key="rollDragCoefficient" value="0.00733"/>
+    <param key="propulsionEfficiency" value="0.9"/>
+    <param key="recuperationEfficiency" value="0.65"/>
+    <param key="constantPowerIntake" value="500.0"/>
+  </vType>
+  <vType id="ford_focus_ev_2016" vClass="passenger" carFollowModel="IDM" accel="3.2" decel="4.5" sigma="0.5" maxSpeed="35.8" length="4.5" mass="1757.67">
+    <param key="airDragCoefficient" value="0.295"/>
+    <param key="frontSurfaceArea" value="2.34"/>
+    <param key="rollDragCoefficient" value="0.005946"/>
+    <param key="propulsionEfficiency" value="0.9"/>
+    <param key="recuperationEfficiency" value="0.65"/>
+    <param key="constantPowerIntake" value="700.0"/>
+  </vType>
+  <vType id="tesla_model_x_75d_2016" vClass="passenger" carFollowModel="IDM" accel="2.5" decel="4.0" sigma="0.45" maxSpeed="45.0" length="4.5" mass="2494.76">
+    <param key="airDragCoefficient" value="0.24"/>
+    <param key="frontSurfaceArea" value="3.24"/>
+    <param key="rollDragCoefficient" value="0.006849"/>
+    <param key="propulsionEfficiency" value="0.92"/>
+    <param key="recuperationEfficiency" value="0.65"/>
+    <param key="constantPowerIntake" value="900.0"/>
+  </vType>
+  <vType id="chevy_bolt_ev_2023" vClass="passenger" carFollowModel="IDM" accel="3.0" decel="4.5" sigma="0.5" maxSpeed="40.0" length="4.5" mass="1757.67">
+    <param key="airDragCoefficient" value="0.308"/>
+    <param key="frontSurfaceArea" value="2.54"/>
+    <param key="rollDragCoefficient" value="0.007871"/>
+    <param key="propulsionEfficiency" value="0.9"/>
+    <param key="recuperationEfficiency" value="0.65"/>
+    <param key="constantPowerIntake" value="700.0"/>
+  </vType>
+</additional>

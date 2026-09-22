@@ -46,8 +46,7 @@ PRD.md            full specification
 
 ## Next implementation steps
 
-1. Build MoST-based multi-vehicle dataset (PRD §9–§10)
-2. Extract LSTM/preprocess logic from `archive/original_repo/Scripts/`
+1. Extract LSTM / trainer from `archive/original_repo/Scripts/` and smoke-train on CPU
 
 ## License
 
