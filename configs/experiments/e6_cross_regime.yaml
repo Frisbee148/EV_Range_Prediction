@@ -1,0 +1,22 @@
+experiment_id: E6
+name: Cross-regime generalisation
+description: "PRD §16.6 (RQ3): Train on urban + arterial, test on highway × Models {A, B} × 5 seeds."
+core: false
+models: ["A", "B"]
+train_scenarios: ["urban", "arterial"]
+test_scenarios: ["highway"]
+seeds: [0, 1, 2, 3, 4]
+T_seq: 60
+stride: 5
+batch_size: 256
+hidden_dim: 128
+num_layers: 2
+dropout: 0.1
+learning_rate: 0.001
+epochs: 100
+warmup_epochs: 10
+patience: 15
+lambda_max: 1.0
+ablation_fraction: 1.0
+soc_k: 1
+noise_enabled: false

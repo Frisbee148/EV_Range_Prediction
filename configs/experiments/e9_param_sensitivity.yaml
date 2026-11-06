@@ -1,0 +1,14 @@
+experiment_id: E9
+name: Parameter sensitivity
+description: "PRD §16.9: Regenerate labels with C_rr and eta_dt at low, mid, and high ends of their [ASSUMED] plausible ranges from §8.2."
+core: false
+parameter_tiers:
+  low:
+    c_rr: 0.008
+    eta_dt: 0.93
+  mid:
+    c_rr: 0.010
+    eta_dt: 0.90
+  high:
+    c_rr: 0.012
+    eta_dt: 0.85

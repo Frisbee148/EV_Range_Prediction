@@ -1,6 +1,6 @@
 PYTHON := $(shell [ -x .venv/bin/python ] && echo .venv/bin/python || echo python3)
 
-.PHONY: test data physics train smoke-train
+.PHONY: test data physics train smoke-train eval
 
 test:
 	$(PYTHON) -m pytest tests -q
@@ -17,3 +17,6 @@ smoke-train:
 
 train:
 	$(PYTHON) -m src.training.trainer --config configs/training.yaml
+
+eval:
+	$(PYTHON) scripts/run_experiments.py --config configs/experiments/e9_param_sensitivity.yaml

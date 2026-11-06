@@ -1,0 +1,20 @@
+experiment_id: E7
+name: Lambda sweep
+description: "PRD §16.7: lambda_max over log-spaced grid {1e-3, 1e-2, 1e-1, 1e0, 1e1}, selected on validation Range MAE, 3 seeds each."
+core: true
+models: ["B"]
+lambda_grid: [0.001, 0.01, 0.1, 1.0, 10.0]
+seeds: [0, 1, 2]
+T_seq: 60
+stride: 5
+batch_size: 256
+hidden_dim: 128
+num_layers: 2
+dropout: 0.1
+learning_rate: 0.001
+epochs: 100
+warmup_epochs: 10
+patience: 15
+ablation_fraction: 1.0
+soc_k: 1
+noise_enabled: false

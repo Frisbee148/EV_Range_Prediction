@@ -44,9 +44,22 @@ docs/             data_acquisition.md, finalized_vehicle_models_report.md
 PRD.md            full specification
 ```
 
-## Next implementation steps
+## Training & Experiments
 
-1. Extract LSTM / trainer from `archive/original_repo/Scripts/` and smoke-train on CPU
+```bash
+# Run unit, residual, evaluation, and smoke-training tests (22 tests)
+make test
+
+# Quick CPU smoke-training comparison (Models A vs B)
+make smoke-train
+
+# Run any experiment suite from configs/experiments/ (E1–E9)
+.venv/bin/python scripts/run_experiments.py --config configs/experiments/e1_in_distribution.yaml
+.venv/bin/python scripts/run_experiments.py --config configs/experiments/e2_data_ablation.yaml
+.venv/bin/python scripts/run_experiments.py --config configs/experiments/e5_leave_one_vehicle_out.yaml
+.venv/bin/python scripts/run_experiments.py --config configs/experiments/e7_lambda_sweep.yaml
+.venv/bin/python scripts/run_experiments.py --config configs/experiments/e9_param_sensitivity.yaml
+```
 
 ## License
 
