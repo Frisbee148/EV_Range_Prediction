@@ -1,0 +1,347 @@
+{
+  "experiment_id": "E7",
+  "selected_lambda_max": 0.01,
+  "aggregated_val": {
+    "B (lambda=0.001)": {
+      "range_mae_km": {
+        "mean": 160.37452189127603,
+        "std": 1.0330842499992383,
+        "n_seeds": 3,
+        "formatted": "160.37 \u00b1 1.03"
+      },
+      "range_rmse_km": {
+        "mean": 355.6754150390625,
+        "std": 1.9669869379061846,
+        "n_seeds": 3,
+        "formatted": "355.68 \u00b1 1.97"
+      },
+      "range_mape_pct": {
+        "mean": 48.86197408040365,
+        "std": 2.179418143436044,
+        "n_seeds": 3,
+        "formatted": "48.86 \u00b1 2.18"
+      },
+      "soc_mae_pp": {
+        "mean": 10.693402608235678,
+        "std": 0.23851487826894485,
+        "n_seeds": 3,
+        "formatted": "10.69 \u00b1 0.24"
+      },
+      "soc_rmse_pp": {
+        "mean": 12.82070509592692,
+        "std": 0.19283717863212632,
+        "n_seeds": 3,
+        "formatted": "12.82 \u00b1 0.19"
+      },
+      "power_mae_kw": {
+        "mean": 1.2240805625915527,
+        "std": 0.08968202896152705,
+        "n_seeds": 3,
+        "formatted": "1.22 \u00b1 0.09"
+      },
+      "power_rmse_kw": {
+        "mean": 2.1543079217274985,
+        "std": 0.20231385746253278,
+        "n_seeds": 3,
+        "formatted": "2.15 \u00b1 0.20"
+      },
+      "residual_rms": {
+        "mean": 0.0036686238211890063,
+        "std": 0.0005059701733407094,
+        "n_seeds": 3,
+        "formatted": "0.003669 \u00b1 0.000506"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 35.27358800255706,
+        "std": 0.41799508977652494,
+        "n_seeds": 3,
+        "formatted": "35.27 \u00b1 0.42"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (lambda=0.01)": {
+      "range_mae_km": {
+        "mean": 158.2472890218099,
+        "std": 3.0514045266786045,
+        "n_seeds": 3,
+        "formatted": "158.25 \u00b1 3.05"
+      },
+      "range_rmse_km": {
+        "mean": 354.65879313151044,
+        "std": 5.436441488748345,
+        "n_seeds": 3,
+        "formatted": "354.66 \u00b1 5.44"
+      },
+      "range_mape_pct": {
+        "mean": 47.109004974365234,
+        "std": 1.4931284173502168,
+        "n_seeds": 3,
+        "formatted": "47.11 \u00b1 1.49"
+      },
+      "soc_mae_pp": {
+        "mean": 10.483990987141928,
+        "std": 0.27246569256717984,
+        "n_seeds": 3,
+        "formatted": "10.48 \u00b1 0.27"
+      },
+      "soc_rmse_pp": {
+        "mean": 12.486275990804037,
+        "std": 0.3192545363013375,
+        "n_seeds": 3,
+        "formatted": "12.49 \u00b1 0.32"
+      },
+      "power_mae_kw": {
+        "mean": 1.2524103720982869,
+        "std": 0.08278158202094,
+        "n_seeds": 3,
+        "formatted": "1.25 \u00b1 0.08"
+      },
+      "power_rmse_kw": {
+        "mean": 2.053809920946757,
+        "std": 0.13545504194493677,
+        "n_seeds": 3,
+        "formatted": "2.05 \u00b1 0.14"
+      },
+      "residual_rms": {
+        "mean": 0.0021274700217569866,
+        "std": 0.00018664832770368532,
+        "n_seeds": 3,
+        "formatted": "0.002127 \u00b1 0.000187"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 32.01621774161037,
+        "std": 1.842832843202734,
+        "n_seeds": 3,
+        "formatted": "32.02 \u00b1 1.84"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0009910522142938044,
+        "std": 0.001401559482474185,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (lambda=0.1)": {
+      "range_mae_km": {
+        "mean": 160.9220937093099,
+        "std": 2.1929515646166307,
+        "n_seeds": 3,
+        "formatted": "160.92 \u00b1 2.19"
+      },
+      "range_rmse_km": {
+        "mean": 353.1741638183594,
+        "std": 2.3512768789788856,
+        "n_seeds": 3,
+        "formatted": "353.17 \u00b1 2.35"
+      },
+      "range_mape_pct": {
+        "mean": 50.62284851074219,
+        "std": 2.001151131343273,
+        "n_seeds": 3,
+        "formatted": "50.62 \u00b1 2.00"
+      },
+      "soc_mae_pp": {
+        "mean": 10.701437950134277,
+        "std": 0.05225248451823823,
+        "n_seeds": 3,
+        "formatted": "10.70 \u00b1 0.05"
+      },
+      "soc_rmse_pp": {
+        "mean": 12.411337852478027,
+        "std": 0.05314085451930911,
+        "n_seeds": 3,
+        "formatted": "12.41 \u00b1 0.05"
+      },
+      "power_mae_kw": {
+        "mean": 0.8232246239980062,
+        "std": 0.03125205509919804,
+        "n_seeds": 3,
+        "formatted": "0.82 \u00b1 0.03"
+      },
+      "power_rmse_kw": {
+        "mean": 1.5026791493097942,
+        "std": 0.05402627996567236,
+        "n_seeds": 3,
+        "formatted": "1.50 \u00b1 0.05"
+      },
+      "residual_rms": {
+        "mean": 0.0003976836645354827,
+        "std": 8.536498200922307e-05,
+        "n_seeds": 3,
+        "formatted": "0.000398 \u00b1 0.000085"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 32.934512805450446,
+        "std": 0.4614978386782801,
+        "n_seeds": 3,
+        "formatted": "32.93 \u00b1 0.46"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (lambda=1)": {
+      "range_mae_km": {
+        "mean": 159.00915018717447,
+        "std": 2.4261030635436893,
+        "n_seeds": 3,
+        "formatted": "159.01 \u00b1 2.43"
+      },
+      "range_rmse_km": {
+        "mean": 351.5062662760417,
+        "std": 4.090710313626958,
+        "n_seeds": 3,
+        "formatted": "351.51 \u00b1 4.09"
+      },
+      "range_mape_pct": {
+        "mean": 48.89941279093424,
+        "std": 0.9738808156812813,
+        "n_seeds": 3,
+        "formatted": "48.90 \u00b1 0.97"
+      },
+      "soc_mae_pp": {
+        "mean": 10.702823003133139,
+        "std": 0.004200215433730476,
+        "n_seeds": 3,
+        "formatted": "10.70 \u00b1 0.00"
+      },
+      "soc_rmse_pp": {
+        "mean": 12.404755592346191,
+        "std": 0.0009126840919882398,
+        "n_seeds": 3,
+        "formatted": "12.40 \u00b1 0.00"
+      },
+      "power_mae_kw": {
+        "mean": 0.8244659105936686,
+        "std": 0.19202018864889395,
+        "n_seeds": 3,
+        "formatted": "0.82 \u00b1 0.19"
+      },
+      "power_rmse_kw": {
+        "mean": 1.561166803042094,
+        "std": 0.3023605904676118,
+        "n_seeds": 3,
+        "formatted": "1.56 \u00b1 0.30"
+      },
+      "residual_rms": {
+        "mean": 7.629201960905145e-05,
+        "std": 3.241137676800879e-06,
+        "n_seeds": 3,
+        "formatted": "0.000076 \u00b1 0.000003"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 29.753739122422065,
+        "std": 0.27234223042940303,
+        "n_seeds": 3,
+        "formatted": "29.75 \u00b1 0.27"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (lambda=10)": {
+      "range_mae_km": {
+        "mean": 159.07682291666666,
+        "std": 3.1995757551183983,
+        "n_seeds": 3,
+        "formatted": "159.08 \u00b1 3.20"
+      },
+      "range_rmse_km": {
+        "mean": 352.40235392252606,
+        "std": 2.756771209666502,
+        "n_seeds": 3,
+        "formatted": "352.40 \u00b1 2.76"
+      },
+      "range_mape_pct": {
+        "mean": 47.682813008626304,
+        "std": 2.626390558617352,
+        "n_seeds": 3,
+        "formatted": "47.68 \u00b1 2.63"
+      },
+      "soc_mae_pp": {
+        "mean": 10.702570597330729,
+        "std": 0.00398062413182257,
+        "n_seeds": 3,
+        "formatted": "10.70 \u00b1 0.00"
+      },
+      "soc_rmse_pp": {
+        "mean": 12.40449301401774,
+        "std": 0.0006269083539793176,
+        "n_seeds": 3,
+        "formatted": "12.40 \u00b1 0.00"
+      },
+      "power_mae_kw": {
+        "mean": 0.9624216755231222,
+        "std": 0.05256641877635051,
+        "n_seeds": 3,
+        "formatted": "0.96 \u00b1 0.05"
+      },
+      "power_rmse_kw": {
+        "mean": 1.7290185689926147,
+        "std": 0.10694912613880246,
+        "n_seeds": 3,
+        "formatted": "1.73 \u00b1 0.11"
+      },
+      "residual_rms": {
+        "mean": 7.082804707655062e-05,
+        "std": 4.142736424539449e-06,
+        "n_seeds": 3,
+        "formatted": "0.000071 \u00b1 0.000004"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 28.772237483946395,
+        "std": 0.7818153758206807,
+        "n_seeds": 3,
+        "formatted": "28.77 \u00b1 0.78"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 3,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    }
+  },
+  "table_markdown": "# E7 Lambda Regularisation Sweep\n\n| Model | Range MAE (km) | Range RMSE (km) | Range MAPE (%) | SOC MAE (pp) | Power MAE (kW) | Residual RMS | Bound viol (%) | Mono viol (%) |\n|---|---|---|---|---|---|---|---|---|\n| B (lambda=0.001) | 160.37 \u00b1 1.03 | 355.68 \u00b1 1.97 | 48.86 \u00b1 2.18 | 10.69 \u00b1 0.24 | 1.22 \u00b1 0.09 | 0.003669 \u00b1 0.000506 | 0.00 \u00b1 0.00 | 35.27 \u00b1 0.42 |\n| B (lambda=0.01) | 158.25 \u00b1 3.05 | 354.66 \u00b1 5.44 | 47.11 \u00b1 1.49 | 10.48 \u00b1 0.27 | 1.25 \u00b1 0.08 | 0.002127 \u00b1 0.000187 | 0.00 \u00b1 0.00 | 32.02 \u00b1 1.84 |\n| B (lambda=0.1) | 160.92 \u00b1 2.19 | 353.17 \u00b1 2.35 | 50.62 \u00b1 2.00 | 10.70 \u00b1 0.05 | 0.82 \u00b1 0.03 | 0.000398 \u00b1 0.000085 | 0.00 \u00b1 0.00 | 32.93 \u00b1 0.46 |\n| B (lambda=1) | 159.01 \u00b1 2.43 | 351.51 \u00b1 4.09 | 48.90 \u00b1 0.97 | 10.70 \u00b1 0.00 | 0.82 \u00b1 0.19 | 0.000076 \u00b1 0.000003 | 0.00 \u00b1 0.00 | 29.75 \u00b1 0.27 |\n| B (lambda=10) | 159.08 \u00b1 3.20 | 352.40 \u00b1 2.76 | 47.68 \u00b1 2.63 | 10.70 \u00b1 0.00 | 0.96 \u00b1 0.05 | 0.000071 \u00b1 0.000004 | 0.00 \u00b1 0.00 | 28.77 \u00b1 0.78 |\n\n**Selected `lambda_max` (lowest val Range MAE):** `0.01`\n"
+}

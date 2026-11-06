@@ -1,0 +1,30 @@
+{
+  "experiment_id": "E9",
+  "sensitivity": {
+    "low": {
+      "c_rr": 0.008,
+      "eta_dt": 0.93,
+      "mean_range_b_km": 183.68484515556145,
+      "std_range_b_km": 222.53877340731393,
+      "mean_p_batt_kw": 5.001367488347369,
+      "mean_end_soc": 0.738489964591411
+    },
+    "mid": {
+      "c_rr": 0.01,
+      "eta_dt": 0.9,
+      "mean_range_b_km": 158.6800091464354,
+      "std_range_b_km": 145.92422317900204,
+      "mean_p_batt_kw": 5.4144584112384315,
+      "mean_end_soc": 0.7365171689259701
+    },
+    "high": {
+      "c_rr": 0.012,
+      "eta_dt": 0.85,
+      "mean_range_b_km": 137.51942532021707,
+      "std_range_b_km": 108.88048731681936,
+      "mean_p_batt_kw": 6.01719815989425,
+      "mean_end_soc": 0.7336345861665078
+    }
+  },
+  "table_markdown": "# E9 Assumed Parameter Sensitivity (`C_rr`, `eta_dt`)\n\n| Tier | C_rr | eta_dt | Mean Range B (km) | Std Range B (km) | Mean P_batt (kW) | Mean End SOC |\n|---|---|---|---|---|---|---|\n| low | 0.008 | 0.93 | 183.68 | 222.54 | 5.00 | 0.7385 |\n| mid | 0.010 | 0.90 | 158.68 | 145.92 | 5.41 | 0.7365 |\n| high | 0.012 | 0.85 | 137.52 | 108.88 | 6.02 | 0.7336 |\n"
+}

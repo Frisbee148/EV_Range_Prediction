@@ -1,10 +1,17 @@
 experiment_id: E8
 name: Sequence-length sweep
-description: "PRD §16.8: T_seq in {30, 60, 120}, Model B, 3 seeds."
+description: "PRD \xA716.8: T_seq in {30, 60, 120}, Model B, 3 seeds."
 core: false
-models: ["B"]
-t_seq_grid: [30, 60, 120]
-seeds: [0, 1, 2]
+models:
+- B
+t_seq_grid:
+- 30
+- 60
+- 120
+seeds:
+- 0
+- 1
+- 2
 stride: 5
 batch_size: 256
 hidden_dim: 128
@@ -14,7 +21,7 @@ learning_rate: 0.001
 epochs: 100
 warmup_epochs: 10
 patience: 15
-lambda_max: 1.0
+lambda_max: 0.01
 ablation_fraction: 1.0
 soc_k: 1
 noise_enabled: false

@@ -43,14 +43,16 @@ archive/original_repo/Scripts/*.pkl
 archive/original_repo/Scripts/plots/
 archive/original_repo/Scripts/ev_pinn_plots/
 
-# Experiment outputs
+# Experiment outputs (keep lightweight results tables/metrics/plots; ignore heavy binary checkpoints)
 experiments/*/
 !experiments/.gitkeep
 models/checkpoints/**
 models/scalers/**
-results/metrics/**
-results/plots/**
-results/tables/**
+!results/metrics/**
+!results/plots/**
+!results/tables/**
+!docs/*.pdf
+!PRD_Final_Summary_Report_STE100.pdf
 
 # Local agent / editor state
 .omc/
@@ -62,6 +64,8 @@ results/tables/**
 
 # Private scratch
 *.pdf
+!docs/*.pdf
+!PRD_Final_Summary_Report_STE100.pdf
 *.docx
 *.zip
 docx_content*.txt

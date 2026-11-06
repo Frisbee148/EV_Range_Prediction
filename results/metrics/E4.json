@@ -1,0 +1,278 @@
+{
+  "experiment_id": "E4",
+  "aggregated": {
+    "A (clean)": {
+      "range_mae_km": {
+        "mean": 130.69221038818358,
+        "std": 8.451524685975023,
+        "n_seeds": 5,
+        "formatted": "130.69 \u00b1 8.45"
+      },
+      "range_rmse_km": {
+        "mean": 309.59027099609375,
+        "std": 45.753999194749625,
+        "n_seeds": 5,
+        "formatted": "309.59 \u00b1 45.75"
+      },
+      "range_mape_pct": {
+        "mean": 192.20914306640626,
+        "std": 16.83333005261597,
+        "n_seeds": 5,
+        "formatted": "192.21 \u00b1 16.83"
+      },
+      "soc_mae_pp": {
+        "mean": 12.04002113342285,
+        "std": 0.32877140359217955,
+        "n_seeds": 5,
+        "formatted": "12.04 \u00b1 0.33"
+      },
+      "soc_rmse_pp": {
+        "mean": 13.908650207519532,
+        "std": 0.42978507242884395,
+        "n_seeds": 5,
+        "formatted": "13.91 \u00b1 0.43"
+      },
+      "power_mae_kw": {
+        "mean": 1.8122598648071289,
+        "std": 0.4441640765562659,
+        "n_seeds": 5,
+        "formatted": "1.81 \u00b1 0.44"
+      },
+      "power_rmse_kw": {
+        "mean": 3.2199259757995606,
+        "std": 0.7675481345058303,
+        "n_seeds": 5,
+        "formatted": "3.22 \u00b1 0.77"
+      },
+      "residual_rms": {
+        "mean": 0.003532705269753933,
+        "std": 0.0008547864651666755,
+        "n_seeds": 5,
+        "formatted": "0.003533 \u00b1 0.000855"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 40.92330551668135,
+        "std": 1.7216780743183984,
+        "n_seeds": 5,
+        "formatted": "40.92 \u00b1 1.72"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (clean)": {
+      "range_mae_km": {
+        "mean": 132.70117797851563,
+        "std": 14.39202038987091,
+        "n_seeds": 5,
+        "formatted": "132.70 \u00b1 14.39"
+      },
+      "range_rmse_km": {
+        "mean": 316.6652038574219,
+        "std": 59.81730887364254,
+        "n_seeds": 5,
+        "formatted": "316.67 \u00b1 59.82"
+      },
+      "range_mape_pct": {
+        "mean": 195.3233642578125,
+        "std": 29.73755361839379,
+        "n_seeds": 5,
+        "formatted": "195.32 \u00b1 29.74"
+      },
+      "soc_mae_pp": {
+        "mean": 11.716722106933593,
+        "std": 0.29066586002985234,
+        "n_seeds": 5,
+        "formatted": "11.72 \u00b1 0.29"
+      },
+      "soc_rmse_pp": {
+        "mean": 13.624876976013184,
+        "std": 0.2734277055773802,
+        "n_seeds": 5,
+        "formatted": "13.62 \u00b1 0.27"
+      },
+      "power_mae_kw": {
+        "mean": 1.7256867647171021,
+        "std": 0.4868411250813935,
+        "n_seeds": 5,
+        "formatted": "1.73 \u00b1 0.49"
+      },
+      "power_rmse_kw": {
+        "mean": 3.0397466659545898,
+        "std": 0.8549594734337691,
+        "n_seeds": 5,
+        "formatted": "3.04 \u00b1 0.85"
+      },
+      "residual_rms": {
+        "mean": 0.0019097995012998582,
+        "std": 0.0001919164210252419,
+        "n_seeds": 5,
+        "formatted": "0.001910 \u00b1 0.000192"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 39.00093298087389,
+        "std": 3.257738929744061,
+        "n_seeds": 5,
+        "formatted": "39.00 \u00b1 3.26"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.004247366632687734,
+        "std": 0.007287669245507039,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.01"
+      }
+    },
+    "A (noisy)": {
+      "range_mae_km": {
+        "mean": 124.94453735351563,
+        "std": 8.526494311680855,
+        "n_seeds": 5,
+        "formatted": "124.94 \u00b1 8.53"
+      },
+      "range_rmse_km": {
+        "mean": 286.3485046386719,
+        "std": 48.07641418836926,
+        "n_seeds": 5,
+        "formatted": "286.35 \u00b1 48.08"
+      },
+      "range_mape_pct": {
+        "mean": 183.6841613769531,
+        "std": 18.312714951740407,
+        "n_seeds": 5,
+        "formatted": "183.68 \u00b1 18.31"
+      },
+      "soc_mae_pp": {
+        "mean": 12.04020938873291,
+        "std": 0.322305717183931,
+        "n_seeds": 5,
+        "formatted": "12.04 \u00b1 0.32"
+      },
+      "soc_rmse_pp": {
+        "mean": 13.923589706420898,
+        "std": 0.4964783563007595,
+        "n_seeds": 5,
+        "formatted": "13.92 \u00b1 0.50"
+      },
+      "power_mae_kw": {
+        "mean": 1.892533040046692,
+        "std": 0.4347771085173739,
+        "n_seeds": 5,
+        "formatted": "1.89 \u00b1 0.43"
+      },
+      "power_rmse_kw": {
+        "mean": 3.4007488250732423,
+        "std": 0.7351763936498424,
+        "n_seeds": 5,
+        "formatted": "3.40 \u00b1 0.74"
+      },
+      "residual_rms": {
+        "mean": 0.0035096171079203485,
+        "std": 0.0011123902642114316,
+        "n_seeds": 5,
+        "formatted": "0.003510 \u00b1 0.001112"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 40.80849703692185,
+        "std": 1.5782510916353458,
+        "n_seeds": 5,
+        "formatted": "40.81 \u00b1 1.58"
+      },
+      "range_neg_viol_pct": {
+        "mean": 8.494733265375467e-05,
+        "std": 0.00016989466530750936,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "B (noisy)": {
+      "range_mae_km": {
+        "mean": 124.80823669433593,
+        "std": 15.118783856342658,
+        "n_seeds": 5,
+        "formatted": "124.81 \u00b1 15.12"
+      },
+      "range_rmse_km": {
+        "mean": 310.29490051269534,
+        "std": 47.05540911593025,
+        "n_seeds": 5,
+        "formatted": "310.29 \u00b1 47.06"
+      },
+      "range_mape_pct": {
+        "mean": 183.66551208496094,
+        "std": 31.61537632294808,
+        "n_seeds": 5,
+        "formatted": "183.67 \u00b1 31.62"
+      },
+      "soc_mae_pp": {
+        "mean": 11.755184745788574,
+        "std": 0.08988947838113553,
+        "n_seeds": 5,
+        "formatted": "11.76 \u00b1 0.09"
+      },
+      "soc_rmse_pp": {
+        "mean": 13.766012573242188,
+        "std": 0.17653180508647875,
+        "n_seeds": 5,
+        "formatted": "13.77 \u00b1 0.18"
+      },
+      "power_mae_kw": {
+        "mean": 1.5881214141845703,
+        "std": 0.19572803231579844,
+        "n_seeds": 5,
+        "formatted": "1.59 \u00b1 0.20"
+      },
+      "power_rmse_kw": {
+        "mean": 2.725488233566284,
+        "std": 0.3328614084407354,
+        "n_seeds": 5,
+        "formatted": "2.73 \u00b1 0.33"
+      },
+      "residual_rms": {
+        "mean": 0.0018513203831389546,
+        "std": 0.00020280847439673632,
+        "n_seeds": 5,
+        "formatted": "0.001851 \u00b1 0.000203"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 38.37047979405311,
+        "std": 2.8548056720357757,
+        "n_seeds": 5,
+        "formatted": "38.37 \u00b1 2.85"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.008834522595990487,
+        "std": 0.013491390890990027,
+        "n_seeds": 5,
+        "formatted": "0.01 \u00b1 0.01"
+      }
+    }
+  },
+  "table_markdown": "# E4 Sensor Noise Robustness\n\n| Model | Range MAE (km) | Range RMSE (km) | Range MAPE (%) | SOC MAE (pp) | Power MAE (kW) | Residual RMS | Bound viol (%) | Mono viol (%) |\n|---|---|---|---|---|---|---|---|---|\n| A (clean) | 130.69 \u00b1 8.45 | 309.59 \u00b1 45.75 | 192.21 \u00b1 16.83 | 12.04 \u00b1 0.33 | 1.81 \u00b1 0.44 | 0.003533 \u00b1 0.000855 | 0.00 \u00b1 0.00 | 40.92 \u00b1 1.72 |\n| B (clean) | 132.70 \u00b1 14.39 | 316.67 \u00b1 59.82 | 195.32 \u00b1 29.74 | 11.72 \u00b1 0.29 | 1.73 \u00b1 0.49 | 0.001910 \u00b1 0.000192 | 0.00 \u00b1 0.00 | 39.00 \u00b1 3.26 |\n| A (noisy) | 124.94 \u00b1 8.53 | 286.35 \u00b1 48.08 | 183.68 \u00b1 18.31 | 12.04 \u00b1 0.32 | 1.89 \u00b1 0.43 | 0.003510 \u00b1 0.001112 | 0.00 \u00b1 0.00 | 40.81 \u00b1 1.58 |\n| B (noisy) | 124.81 \u00b1 15.12 | 310.29 \u00b1 47.06 | 183.67 \u00b1 31.62 | 11.76 \u00b1 0.09 | 1.59 \u00b1 0.20 | 0.001851 \u00b1 0.000203 | 0.00 \u00b1 0.00 | 38.37 \u00b1 2.85 |\n"
+}

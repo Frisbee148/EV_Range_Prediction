@@ -1,10 +1,22 @@
 experiment_id: E3
 name: Sparse SOC supervision
-description: "PRD §16.3 (RQ1): SOC label interval k in {1, 10, 60, 300} × Models {A, B} × 5 seeds."
+description: "PRD \xA716.3 (RQ1): SOC label interval k in {1, 10, 60, 300} \xD7 Models\
+  \ {A, B} \xD7 5 seeds."
 core: false
-models: ["A", "B"]
-soc_k_intervals: [1, 10, 60, 300]
-seeds: [0, 1, 2, 3, 4]
+models:
+- A
+- B
+soc_k_intervals:
+- 1
+- 10
+- 60
+- 300
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
 T_seq: 60
 stride: 5
 batch_size: 256
@@ -15,6 +27,6 @@ learning_rate: 0.001
 epochs: 100
 warmup_epochs: 10
 patience: 15
-lambda_max: 1.0
+lambda_max: 0.01
 ablation_fraction: 1.0
 noise_enabled: false

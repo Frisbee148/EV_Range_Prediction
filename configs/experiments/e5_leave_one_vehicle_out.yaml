@@ -1,14 +1,22 @@
 experiment_id: E5
 name: Leave-one-vehicle-out
-description: "PRD §16.5 (RQ2): 4 vehicle folds (train on 3, test on held-out 4th) × Models {A, B} × 5 seeds = 40 runs."
+description: "PRD \xA716.5 (RQ2): 4 vehicle folds (train on 3, test on held-out 4th)\
+  \ \xD7 Models {A, B} \xD7 5 seeds = 40 runs."
 core: true
-models: ["A", "B"]
+models:
+- A
+- B
 vehicles:
-  - bmw_i3_60ah
-  - ford_focus_ev_2016
-  - tesla_model_x_75d_2016
-  - chevy_bolt_ev_2023
-seeds: [0, 1, 2, 3, 4]
+- bmw_i3_60ah
+- ford_focus_ev_2016
+- tesla_model_x_75d_2016
+- chevy_bolt_ev_2023
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
 T_seq: 60
 stride: 5
 batch_size: 256
@@ -19,7 +27,7 @@ learning_rate: 0.001
 epochs: 100
 warmup_epochs: 10
 patience: 15
-lambda_max: 1.0
+lambda_max: 0.01
 ablation_fraction: 1.0
 soc_k: 1
 noise_enabled: false

@@ -1,10 +1,19 @@
 experiment_id: E4
 name: Noise robustness
-description: "PRD §16.4: Sensor noise on / off × Models {A, B} × 5 seeds."
+description: "PRD \xA716.4: Sensor noise on / off \xD7 Models {A, B} \xD7 5 seeds."
 core: false
-models: ["A", "B"]
-noise_settings: [false, true]
-seeds: [0, 1, 2, 3, 4]
+models:
+- A
+- B
+noise_settings:
+- false
+- true
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
 T_seq: 60
 stride: 5
 batch_size: 256
@@ -15,7 +24,7 @@ learning_rate: 0.001
 epochs: 100
 warmup_epochs: 10
 patience: 15
-lambda_max: 1.0
+lambda_max: 0.01
 ablation_fraction: 1.0
 soc_k: 1
 noise_seed: 42

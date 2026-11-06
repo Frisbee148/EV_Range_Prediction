@@ -1,0 +1,142 @@
+{
+  "experiment_id": "E6",
+  "aggregated": {
+    "Model A": {
+      "range_mae_km": {
+        "mean": 119.1273422241211,
+        "std": 7.696704050707453,
+        "n_seeds": 5,
+        "formatted": "119.13 \u00b1 7.70"
+      },
+      "range_rmse_km": {
+        "mean": 259.7357513427734,
+        "std": 5.857893817794882,
+        "n_seeds": 5,
+        "formatted": "259.74 \u00b1 5.86"
+      },
+      "range_mape_pct": {
+        "mean": 68.9657600402832,
+        "std": 5.038345984121054,
+        "n_seeds": 5,
+        "formatted": "68.97 \u00b1 5.04"
+      },
+      "soc_mae_pp": {
+        "mean": 10.39833469390869,
+        "std": 0.10956881047191379,
+        "n_seeds": 5,
+        "formatted": "10.40 \u00b1 0.11"
+      },
+      "soc_rmse_pp": {
+        "mean": 11.913034439086914,
+        "std": 0.1363008570341882,
+        "n_seeds": 5,
+        "formatted": "11.91 \u00b1 0.14"
+      },
+      "power_mae_kw": {
+        "mean": 3.7953556060791014,
+        "std": 0.6017199063046303,
+        "n_seeds": 5,
+        "formatted": "3.80 \u00b1 0.60"
+      },
+      "power_rmse_kw": {
+        "mean": 8.187736225128173,
+        "std": 0.8359095126738196,
+        "n_seeds": 5,
+        "formatted": "8.19 \u00b1 0.84"
+      },
+      "residual_rms": {
+        "mean": 0.00259599513374269,
+        "std": 0.00035213917711837445,
+        "n_seeds": 5,
+        "formatted": "0.002596 \u00b1 0.000352"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 36.77110869227181,
+        "std": 3.8804102106799143,
+        "n_seeds": 5,
+        "formatted": "36.77 \u00b1 3.88"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    },
+    "Model B": {
+      "range_mae_km": {
+        "mean": 117.27228088378907,
+        "std": 4.996499564801941,
+        "n_seeds": 5,
+        "formatted": "117.27 \u00b1 5.00"
+      },
+      "range_rmse_km": {
+        "mean": 258.4407501220703,
+        "std": 3.94292705270604,
+        "n_seeds": 5,
+        "formatted": "258.44 \u00b1 3.94"
+      },
+      "range_mape_pct": {
+        "mean": 67.38126602172852,
+        "std": 3.181988870417669,
+        "n_seeds": 5,
+        "formatted": "67.38 \u00b1 3.18"
+      },
+      "soc_mae_pp": {
+        "mean": 10.403580474853516,
+        "std": 0.11614144229078165,
+        "n_seeds": 5,
+        "formatted": "10.40 \u00b1 0.12"
+      },
+      "soc_rmse_pp": {
+        "mean": 11.901306343078613,
+        "std": 0.1164675628269773,
+        "n_seeds": 5,
+        "formatted": "11.90 \u00b1 0.12"
+      },
+      "power_mae_kw": {
+        "mean": 3.7809889793395994,
+        "std": 0.6262475871308267,
+        "n_seeds": 5,
+        "formatted": "3.78 \u00b1 0.63"
+      },
+      "power_rmse_kw": {
+        "mean": 8.10590991973877,
+        "std": 0.9721255090661663,
+        "n_seeds": 5,
+        "formatted": "8.11 \u00b1 0.97"
+      },
+      "residual_rms": {
+        "mean": 0.0024682827759534122,
+        "std": 0.00046488193899733306,
+        "n_seeds": 5,
+        "formatted": "0.002468 \u00b1 0.000465"
+      },
+      "soc_bound_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      },
+      "soc_mono_viol_pct": {
+        "mean": 36.045716062820716,
+        "std": 2.639292144586429,
+        "n_seeds": 5,
+        "formatted": "36.05 \u00b1 2.64"
+      },
+      "range_neg_viol_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "n_seeds": 5,
+        "formatted": "0.00 \u00b1 0.00"
+      }
+    }
+  },
+  "table_markdown": "# E6 Cross-Regime Generalisation (Urban+Arterial -> Highway)\n\n| Model | Range MAE (km) | Range RMSE (km) | Range MAPE (%) | SOC MAE (pp) | Power MAE (kW) | Residual RMS | Bound viol (%) | Mono viol (%) |\n|---|---|---|---|---|---|---|---|---|\n| Model A | 119.13 \u00b1 7.70 | 259.74 \u00b1 5.86 | 68.97 \u00b1 5.04 | 10.40 \u00b1 0.11 | 3.80 \u00b1 0.60 | 0.002596 \u00b1 0.000352 | 0.00 \u00b1 0.00 | 36.77 \u00b1 3.88 |\n| Model B | 117.27 \u00b1 5.00 | 258.44 \u00b1 3.94 | 67.38 \u00b1 3.18 | 10.40 \u00b1 0.12 | 3.78 \u00b1 0.63 | 0.002468 \u00b1 0.000465 | 0.00 \u00b1 0.00 | 36.05 \u00b1 2.64 |\n"
+}
