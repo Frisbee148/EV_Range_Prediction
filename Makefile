@@ -1,10 +1,19 @@
-.PHONY: test data physics
+PYTHON := $(shell [ -x .venv/bin/python ] && echo .venv/bin/python || echo python3)
+
+.PHONY: test data physics train smoke-train
 
 test:
-	python3 -m pytest tests -q
+	$(PYTHON) -m pytest tests -q
 
 physics:
-	python3 scripts/validate_physics_tum.py
+	$(PYTHON) scripts/validate_physics_tum.py
 
 data:
-	python3 scripts/build_sumo_dataset.py
+	$(PYTHON) scripts/build_sumo_dataset.py
+
+smoke-train:
+	$(PYTHON) -m src.training.trainer --model A --epochs 5 --warmup-epochs 2 --soc-k 10 --ablation-fraction 0.1 --run-id smoke_A
+	$(PYTHON) -m src.training.trainer --model B --epochs 5 --warmup-epochs 2 --soc-k 10 --ablation-fraction 0.1 --run-id smoke_B
+
+train:
+	$(PYTHON) -m src.training.trainer --config configs/training.yaml

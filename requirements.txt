@@ -2,3 +2,5 @@ numpy
 pandas
 pyyaml
 pytest
+torch
+scikit-learn
