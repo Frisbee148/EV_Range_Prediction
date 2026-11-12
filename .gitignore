@@ -77,6 +77,8 @@ dataset/processed/**
 !dataset/processed/.gitkeep
 data/processed/**
 !data/processed/.gitkeep
+!data/processed/sumo_most_1hz.csv.gz
+!data/processed/build_summary.json
 !data/splits/
 !dataset/README.md
 !dataset/reports/

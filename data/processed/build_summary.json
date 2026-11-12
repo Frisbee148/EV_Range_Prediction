@@ -1,0 +1,62 @@
+{
+  "engine": "idm_most",
+  "sumo_available": false,
+  "rows": 144000,
+  "trips": 240,
+  "vehicles": [
+    "bmw_i3_60ah",
+    "chevy_bolt_ev_2023",
+    "ford_focus_ev_2016",
+    "tesla_model_x_75d_2016"
+  ],
+  "scenarios": [
+    "arterial",
+    "highway",
+    "urban"
+  ],
+  "elevation_std_m": 170.8776248390366,
+  "elevation_minmax_m": [
+    -0.0748479976114426,
+    616.2757143522578
+  ],
+  "max_abs_speed_corr": 0.3313492939766256,
+  "dropped_negative_energy_trips": 0,
+  "split_counts": {
+    "train": 168,
+    "val": 36,
+    "test": 36
+  },
+  "schema": [
+    "timestamp",
+    "vehicle_id",
+    "trip_id",
+    "scenario",
+    "speed_mps",
+    "accel_mps2",
+    "grade_rad",
+    "elevation_m",
+    "distance_m",
+    "stop_flag",
+    "ambient_temp_c",
+    "mass_kg",
+    "drag_coefficient",
+    "frontal_area_m2",
+    "rolling_resistance",
+    "battery_capacity_j",
+    "drivetrain_efficiency",
+    "regen_efficiency",
+    "aux_power_base_w",
+    "rotating_mass_factor",
+    "p_wheel_w",
+    "p_batt_w",
+    "soc",
+    "energy_remaining_j",
+    "range_a_m",
+    "range_b_m",
+    "range_valid_mask",
+    "soc_label_mask",
+    "noise_seed"
+  ],
+  "output": "data/processed/sumo_most_1hz.csv.gz",
+  "note": "Labels from project physics E1\u2013E14, not SUMO battery device."
+}

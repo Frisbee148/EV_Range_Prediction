@@ -55,6 +55,7 @@ class TrainerConfig:
     noise_seed: int = 42
     device: str = "auto"
     grad_clip_norm: float = 1.0
+    min_ckpt_epoch: int | None = None
 
     @classmethod
     def from_yaml(cls, path: str | Path, **overrides: Any) -> TrainerConfig:
@@ -328,9 +329,18 @@ class Trainer:
         # For physics-enabled models (effective_lambda_max > 0), only start tracking the
         # best checkpoint once lambda(epoch) > 0 (i.e. epoch >= 1 when warmup_epochs > 0)
         # so Model B cannot silently select its epoch-0 (lambda=0) weights identical to Model A.
-        min_ckpt_epoch = (
-            1 if (self.effective_lambda_max > 0.0 and self.config.warmup_epochs > 0 and self.config.epochs > 1) else 0
-        )
+        if self.config.min_ckpt_epoch is not None:
+            min_ckpt_epoch = min(int(self.config.min_ckpt_epoch), max(0, self.config.epochs - 1))
+        else:
+            min_ckpt_epoch = (
+                1
+                if (
+                    self.effective_lambda_max > 0.0
+                    and self.config.warmup_epochs > 0
+                    and self.config.epochs > 1
+                )
+                else 0
+            )
 
         for epoch in range(self.config.epochs):
             tr_stats = self._run_epoch(self.loaders["train"], epoch=epoch, train=True)
