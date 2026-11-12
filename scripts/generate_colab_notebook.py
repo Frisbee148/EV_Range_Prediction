@@ -277,32 +277,38 @@ Now that we verified the fixes in code:
 
     cells.append(
         code_cell(
-            """
+            r'''
 import time
-from IPython.display import Image
+from IPython.display import Image, display, Markdown
 from src.training.trainer import Trainer, TrainerConfig
-from src.evaluation.metrics import summarize_seed_runs, format_markdown_table
-from src.evaluation.plots import plot_e2_data_ablation
+from src.data.dataset import prepare_datasets
+from src.evaluation.metrics import aggregate_seed_metrics, format_results_table
+from src.evaluation.plots import plot_data_ablation_curve
 
 # Configure seeds for E2 verification (use [0, 1, 2, 3, 4] for full 5-seed PRD table, or [0, 1] for fast check)
 SEEDS_TO_RUN = [0, 1, 2, 3, 4]
 FRACTIONS_TO_RUN = [0.05, 0.10, 0.25, 0.50, 1.00]
 LAMBDA_MAX = 0.01
 
-e2_path = PROJECT_ROOT / "results" / "metrics" / "E2.json"
-e2_data = json.loads(e2_path.read_text(encoding="utf-8")) if e2_path.exists() else {"experiment": "E2", "fractions": {}}
+plots_dir = PROJECT_ROOT / "results" / "plots"
+tables_dir = PROJECT_ROOT / "results" / "tables"
+metrics_dir = PROJECT_ROOT / "results" / "metrics"
+plots_dir.mkdir(parents=True, exist_ok=True)
+tables_dir.mkdir(parents=True, exist_ok=True)
+metrics_dir.mkdir(parents=True, exist_ok=True)
+
+ablation_runs = {}
+summary_rows = {}
 
 t0 = time.perf_counter()
 for frac in FRACTIONS_TO_RUN:
-    f_key = f"{int(round(frac * 100))}pct"
-    e2_data["fractions"].setdefault(f_key, {"fraction": frac, "models": {}})
-    for model_id in ["A", "B"]:
-        runs = []
-        for seed in SEEDS_TO_RUN:
-            prepared = prepare_datasets(
-                df, splits, t_seq=60, stride=5,
-                ablation_fraction=frac, ablation_seed=seed,
-            )
+    ablation_runs[frac] = {"A": [], "B": []}
+    for seed in SEEDS_TO_RUN:
+        prepared = prepare_datasets(
+            df, splits, t_seq=60, stride=5,
+            ablation_fraction=frac, ablation_seed=seed,
+        )
+        for model_id in ["A", "B"]:
             cfg = TrainerConfig(
                 model_id=model_id, T_seq=60, stride=5, batch_size=64,
                 hidden_dim=128, num_layers=2, dropout=0.1, learning_rate=1e-3,
@@ -311,86 +317,76 @@ for frac in FRACTIONS_TO_RUN:
             )
             run_id = f"E2_frac{int(round(frac * 100))}_model_{model_id}_seed{seed}"
             res = Trainer(cfg, prepared, root_dir=PROJECT_ROOT).fit(run_id=run_id, save_artifacts=True)
-            runs.append(res.test_metrics)
+            ablation_runs[frac][model_id].append(res.test_metrics)
             print(
                 f"  [{run_id}] trips={len(prepared.train_trips):3d} best_ep={res.best_epoch:2d}/{res.epochs_run:2d} "
                 f"Range MAE={res.test_metrics['range_mae_km']:6.2f} km | "
                 f"Power MAE={res.test_metrics['power_mae_kw']:5.2f} kW | "
                 f"Res RMS={res.test_metrics['residual_rms']:.5f}"
             )
-        e2_data["fractions"][f_key]["models"][f"Model-{model_id}"] = summarize_seed_runs(runs)
+    summary_rows[f"A ({int(round(frac * 100))}%)"] = aggregate_seed_metrics(ablation_runs[frac]["A"])
+    summary_rows[f"B ({int(round(frac * 100))}%)"] = aggregate_seed_metrics(ablation_runs[frac]["B"])
 
-# Save updated E2 metrics, markdown table, and plot
-e2_path.write_text(json.dumps(e2_data, indent=2), encoding="utf-8")
-flat_e2 = {}
-for f_key, block in e2_data["fractions"].items():
-    for m_key, stats in block["models"].items():
-        flat_e2[f"{f_key} / {m_key}"] = stats
+# Generate markdown table and ablation plot
+table_md = f"# E2 Data Ablation (Updated with Proportional Trip Allocation)\n\n{format_results_table(summary_rows)}\n"
+(tables_dir / "E2.md").write_text(table_md, encoding="utf-8")
 
-e2_md = format_markdown_table("E2 — Data Efficiency Ablation (Updated with Proportional Trip Allocation)", flat_e2)
-(PROJECT_ROOT / "results" / "tables" / "E2.md").write_text(e2_md, encoding="utf-8")
+payload = {
+    "experiment_id": "E2",
+    "fractions": [float(f) for f in FRACTIONS_TO_RUN],
+    "aggregated": summary_rows,
+    "table_markdown": table_md,
+}
+(metrics_dir / "E2.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
-frac_floats = [block["fraction"] for block in e2_data["fractions"].values()]
-ma_means = [block["models"]["Model-A"]["range_mae_km"]["mean"] for block in e2_data["fractions"].values()]
-ma_stds  = [block["models"]["Model-A"]["range_mae_km"]["std"]  for block in e2_data["fractions"].values()]
-mb_means = [block["models"]["Model-B"]["range_mae_km"]["mean"] for block in e2_data["fractions"].values()]
-mb_stds  = [block["models"]["Model-B"]["range_mae_km"]["std"]  for block in e2_data["fractions"].values()]
-plot_path = plot_e2_data_ablation(frac_floats, ma_means, ma_stds, mb_means, mb_stds, PROJECT_ROOT / "results" / "plots" / "E2_data_ablation.png")
+plot_path = plots_dir / "E2_data_ablation.png"
+if len(SEEDS_TO_RUN) >= 3:
+    plot_data_ablation_curve(ablation_runs, plot_path)
 
-print(f"\\nCompleted E2 rerun in {time.perf_counter() - t0:.1f}s!")
-display(Markdown(e2_md))
-display(Image(filename=str(plot_path)))
-"""
+print(f"\nCompleted E2 rerun in {time.perf_counter() - t0:.1f}s!")
+display(Markdown(table_md))
+if plot_path.exists():
+    display(Image(filename=str(plot_path)))
+'''
         )
     )
 
     cells.append(
         code_cell(
-            """
-from src.evaluation.cross_vehicle import run_leave_one_vehicle_out_fold
+            r'''
+from src.evaluation.cross_vehicle import all_lovo_folds, summarize_lovo_folds
 
 # Re-run the Tesla Model X 75D fold in E5 (where Model B previously picked epoch 0)
 e5_path = PROJECT_ROOT / "results" / "metrics" / "E5.json"
-e5_data = json.loads(e5_path.read_text(encoding="utf-8")) if e5_path.exists() else {"experiment": "E5", "folds": {}, "pooled": {}}
+e5_data = json.loads(e5_path.read_text(encoding="utf-8")) if e5_path.exists() else {"experiment_id": "E5"}
 
-base_cfg = TrainerConfig(
-    model_id="B", T_seq=60, stride=5, batch_size=64,
-    hidden_dim=128, num_layers=2, dropout=0.1, learning_rate=1e-3,
-    epochs=100, warmup_epochs=10, lambda_max=0.01, patience=15,
-)
+folds = all_lovo_folds(df)
+target_vids = ["tesla_model_x_75d_2016"]
+fold_runs = {"A": {}, "B": {}}
+table_rows = {}
 
 print("Re-running E5 Leave-One-Vehicle-Out fold for tesla_model_x_75d_2016 with min_ckpt_epoch >= 1 ...")
-tesla_fold = run_leave_one_vehicle_out_fold(
-    df,
-    held_out_vehicle="tesla_model_x_75d_2016",
-    base_config=base_cfg,
-    seeds=SEEDS_TO_RUN,
-    models=("A", "B"),
-    root_dir=PROJECT_ROOT,
-)
-e5_data["folds"]["tesla_model_x_75d_2016"] = tesla_fold
+for vid in target_vids:
+    f_split = folds[vid]
+    prepared = prepare_datasets(df, f_split, t_seq=60, stride=5)
+    for m_id in ("A", "B"):
+        fold_runs[m_id][vid] = []
+        for s in SEEDS_TO_RUN:
+            cfg = TrainerConfig(
+                model_id=m_id, T_seq=60, stride=5, batch_size=64,
+                hidden_dim=128, num_layers=2, dropout=0.1, learning_rate=1e-3,
+                epochs=100, warmup_epochs=10, lambda_max=0.01, patience=15,
+                seed=s,
+            )
+            res = Trainer(cfg, prepared, root_dir=PROJECT_ROOT).fit(
+                run_id=f"E5_holdout_{vid}_model_{m_id}_seed{s}", save_artifacts=True
+            )
+            fold_runs[m_id][vid].append(res.test_metrics)
+        table_rows[f"{m_id} ({vid})"] = aggregate_seed_metrics(fold_runs[m_id][vid])
 
-# Recompute pooled macro-average across all 4 vehicles
-for m_key in ["Model-A", "Model-B"]:
-    if all(v in e5_data["folds"] for v in ["bmw_i3_2014", "ford_focus_ev_2016", "chevy_bolt_ev_2023", "tesla_model_x_75d_2016"]):
-        fold_means = [
-            {metric: stats["mean"] for metric, stats in e5_data["folds"][v][m_key].items()}
-            for v in ["bmw_i3_2014", "ford_focus_ev_2016", "chevy_bolt_ev_2023", "tesla_model_x_75d_2016"]
-        ]
-        e5_data["pooled"][m_key] = summarize_seed_runs(fold_means)
-
-e5_path.write_text(json.dumps(e5_data, indent=2), encoding="utf-8")
-flat_e5 = {}
-for v, block in e5_data["folds"].items():
-    for m_key, stats in block.items():
-        flat_e5[f"{v} / {m_key}"] = stats
-for m_key, stats in e5_data.get("pooled", {}).items():
-    flat_e5[f"POOLED / {m_key}"] = stats
-
-e5_md = format_markdown_table("E5 — Leave-One-Vehicle-Out Zero-Shot Generalisation (Updated)", flat_e5)
-(PROJECT_ROOT / "results" / "tables" / "E5.md").write_text(e5_md, encoding="utf-8")
+e5_md = f"# E5 Leave-One-Vehicle-Out (Updated Fold)\n\n{format_results_table(table_rows)}\n"
 display(Markdown(e5_md))
-"""
+'''
         )
     )
 
