@@ -194,10 +194,12 @@ def run_experiment_suite(
     if exp_key == "E1":
         run_seeds = seeds if seeds is not None else [0, 1, 2, 3, 4]
         prepared = prepare_datasets(df, split_ids, t_seq=t_seq, stride=stride)
+        test_df = df[df["trip_id"].isin(set(split_ids["test"]))].copy()
         base_eval = evaluate_baselines(
             prepared.train_dataset.windows,
             prepared.test_dataset.windows,
             vehicles_yaml=vehicles_yaml,
+            test_trip_frames=test_df,
         )
 
         seeds_by_model: dict[str, dict[int, dict[str, float]]] = {"A": {}, "B": {}}

@@ -325,6 +325,12 @@ class Trainer:
         best_state: dict[str, torch.Tensor] | None = None
         epochs_without_improvement = 0
         history: list[dict[str, float]] = []
+        # For physics-enabled models (effective_lambda_max > 0), only start tracking the
+        # best checkpoint once lambda(epoch) > 0 (i.e. epoch >= 1 when warmup_epochs > 0)
+        # so Model B cannot silently select its epoch-0 (lambda=0) weights identical to Model A.
+        min_ckpt_epoch = (
+            1 if (self.effective_lambda_max > 0.0 and self.config.warmup_epochs > 0 and self.config.epochs > 1) else 0
+        )
 
         for epoch in range(self.config.epochs):
             tr_stats = self._run_epoch(self.loaders["train"], epoch=epoch, train=True)
@@ -339,6 +345,9 @@ class Trainer:
                 **{f"val_{k}": v for k, v in va_stats.items()},
             }
             history.append(row)
+
+            if epoch < min_ckpt_epoch:
+                continue
 
             if val_criterion < best_val_loss - 1e-6:
                 best_val_loss = val_criterion

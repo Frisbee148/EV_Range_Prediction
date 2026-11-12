@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+import pandas as pd
 import torch
 
 from src.data.sequence_builder import ScalerBundle, SequenceWindows
@@ -111,10 +112,11 @@ def evaluate_baselines(
     test_windows: SequenceWindows,
     vehicles_yaml: str | Path,
     ridge_alpha: float = 1.0,
+    test_trip_frames: pd.DataFrame | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Evaluate Base-0 (Analytic Physics) and Base-1 (Ridge Window) on `test_windows` (PRD §15)."""
     base0 = AnalyticPhysicsBaseline(vehicles_yaml=vehicles_yaml)
-    pred0 = base0.predict(test_windows)
+    pred0 = base0.predict(test_windows, trip_frames=test_trip_frames)
     metrics0 = compute_all_metrics(
         soc_hat=pred0["soc_hat"],
         p_hat_w=pred0["p_hat_w"],

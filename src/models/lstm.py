@@ -5,6 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn as nn
 from sklearn.linear_model import Ridge
@@ -13,6 +14,9 @@ from src.data.sequence_builder import DYNAMIC_FEATURES, STATIC_FEATURES, Sequenc
 from src.models.attention import TemporalSelfAttention
 from src.physics.trip import simulate_trip
 from src.vehicles import PhysicsConstants, VehicleParams, load_all_vehicles, load_physics_constants
+
+# Window-only Base-0 cap: 1000 km. The largest label range in the dataset is about 806 km.
+_RANGE_CAP_M = 1.0e6
 
 
 class EVTrajectoryLSTM(nn.Module):
@@ -183,28 +187,71 @@ class AnalyticPhysicsBaseline:
         self.vehicles: dict[str, VehicleParams] = load_all_vehicles(vehicles_yaml)
         self.constants: PhysicsConstants = load_physics_constants(vehicles_yaml)
 
-    def predict(self, windows: SequenceWindows) -> dict[str, np.ndarray]:
+    def predict(
+        self,
+        windows: SequenceWindows,
+        trip_frames: pd.DataFrame | None = None,
+    ) -> dict[str, np.ndarray]:
+        """Predict SOC, power and range for every window.
+
+        With `trip_frames` (the full-trip rows of the same split), each trip is
+        simulated once from its first SOC, exactly as the labels were built.
+        Windows are then sliced from that simulation, so the range output is
+        Definition B (E14), the same quantity as the label. This is the PRD §15
+        upper bound.
+
+        Without `trip_frames` the 60 s window is simulated alone. Range is then
+        Definition A (E13), which is a different quantity from the label and
+        can be unbounded when the smoothed energy rate is near zero. It is
+        capped at the largest physically possible range for the vehicle.
+        """
         n, t_seq = windows.soc.shape
         soc_hat = np.empty((n, t_seq), dtype=np.float32)
         p_hat_w = np.empty((n, t_seq), dtype=np.float32)
         range_hat_m = np.empty((n, t_seq), dtype=np.float32)
 
-        for i in range(n):
-            vid = windows.vehicle_ids[i]
-            vehicle = self.vehicles[vid]
-            sim = simulate_trip(
-                v_mps=windows.speed_mps_raw[i],
-                a_mps2=windows.accel_mps2_raw[i],
-                theta_rad=windows.grade_rad_raw[i],
-                t_amb_c=windows.ambient_temp_c_raw[i],
-                soc_0=float(windows.soc[i, 0]),
-                dt_s=float(windows.dt_s[i]),
-                vehicle=vehicle,
-                constants=self.constants,
-            )
-            soc_hat[i] = sim["soc"].astype(np.float32)
-            p_hat_w[i] = sim["p_batt_w"].astype(np.float32)
-            range_hat_m[i] = sim["range_a_m"].astype(np.float32)
+        if trip_frames is not None:
+            if len(windows.start_idx) != n:
+                raise ValueError("windows.start_idx is required when trip_frames is given.")
+            trip_sims: dict[str, dict[str, np.ndarray | bool]] = {}
+            for trip_id, group in trip_frames.groupby("trip_id", sort=False):
+                trip = group.sort_values("timestamp", kind="mergesort")
+                ts = trip["timestamp"].to_numpy(dtype=float)
+                dt_s = float(np.median(np.diff(ts))) if len(ts) > 1 else 1.0
+                trip_sims[str(trip_id)] = simulate_trip(
+                    v_mps=trip["speed_mps"].to_numpy(dtype=float),
+                    a_mps2=trip["accel_mps2"].to_numpy(dtype=float),
+                    theta_rad=trip["grade_rad"].to_numpy(dtype=float),
+                    t_amb_c=trip["ambient_temp_c"].to_numpy(dtype=float),
+                    soc_0=float(trip["soc"].iloc[0]),
+                    dt_s=dt_s,
+                    vehicle=self.vehicles[str(trip["vehicle_id"].iloc[0])],
+                    constants=self.constants,
+                )
+            for i in range(n):
+                sim = trip_sims[windows.trip_ids[i]]
+                lo = int(windows.start_idx[i])
+                hi = lo + t_seq
+                soc_hat[i] = np.asarray(sim["soc"])[lo:hi]
+                p_hat_w[i] = np.asarray(sim["p_batt_w"])[lo:hi]
+                range_hat_m[i] = np.asarray(sim["range_b_m"])[lo:hi]
+        else:
+            for i in range(n):
+                vid = windows.vehicle_ids[i]
+                vehicle = self.vehicles[vid]
+                sim = simulate_trip(
+                    v_mps=windows.speed_mps_raw[i],
+                    a_mps2=windows.accel_mps2_raw[i],
+                    theta_rad=windows.grade_rad_raw[i],
+                    t_amb_c=windows.ambient_temp_c_raw[i],
+                    soc_0=float(windows.soc[i, 0]),
+                    dt_s=float(windows.dt_s[i]),
+                    vehicle=vehicle,
+                    constants=self.constants,
+                )
+                soc_hat[i] = sim["soc"].astype(np.float32)
+                p_hat_w[i] = sim["p_batt_w"].astype(np.float32)
+                range_hat_m[i] = np.clip(sim["range_a_m"], 0.0, _RANGE_CAP_M).astype(np.float32)
 
         return {
             "soc_hat": soc_hat,

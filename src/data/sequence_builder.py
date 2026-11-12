@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import pickle
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -161,6 +161,7 @@ class SequenceWindows:
     ambient_temp_c_raw: np.ndarray # [N, T_seq] raw C
     trip_ids: list[str]
     vehicle_ids: list[str]
+    start_idx: list[int] = field(default_factory=list)  # window start row within its trip
 
     def __len__(self) -> int:
         return int(self.x_dyn.shape[0])
@@ -196,6 +197,7 @@ def build_windows(
     temp_raw_list: list[np.ndarray] = []
     trip_ids: list[str] = []
     vehicle_ids: list[str] = []
+    start_idx_list: list[int] = []
 
     for trip_id, group in df.groupby("trip_id", sort=False):
         trip = group.sort_values("timestamp", kind="mergesort")
@@ -250,6 +252,7 @@ def build_windows(
             temp_raw_list.append(t_raw[start:end])
             trip_ids.append(str(trip_id))
             vehicle_ids.append(vid)
+            start_idx_list.append(int(start))
 
     if not x_dyn_list:
         raise ValueError(f"No windows of length t_seq={t_seq} could be built from DataFrame.")
@@ -273,4 +276,5 @@ def build_windows(
         ambient_temp_c_raw=np.stack(temp_raw_list, axis=0),
         trip_ids=trip_ids,
         vehicle_ids=vehicle_ids,
+        start_idx=start_idx_list,
     )

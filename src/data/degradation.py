@@ -28,8 +28,12 @@ def subsample_training_trips(
 ) -> list[str]:
     """Sample `fraction` of `train_trip_ids` at trip granularity (PRD §11.1).
 
-    Stratifies by `(vehicle_id, scenario)` when multiple groups exist so every
-    vehicle-scenario cell remains represented even at 5% ablation.
+    The total number of trips is `round(fraction * N)` (at least 1). It is split
+    across `(vehicle_id, scenario)` groups in proportion to group size using the
+    largest-remainder method, so the requested fractions give distinct, honest
+    subset sizes. A forced "at least one trip per group" floor is NOT applied:
+    it made the 5% and 10% settings select the same trips. At very small
+    fractions some groups can therefore have no training trips.
     """
     if not (0.0 < fraction <= 1.0):
         raise ValueError(f"ablation fraction must be in (0, 1], got {fraction}")
@@ -47,12 +51,35 @@ def subsample_training_trips(
     for row in meta.itertuples(index=False):
         groups[(str(row.vehicle_id), str(row.scenario))].append(str(row.trip_id))
 
+    keys = sorted(groups)
+    sizes = {key: len(set(groups[key])) for key in keys}
+    n_all = sum(sizes.values())
+    n_total = min(n_all, max(1, int(round(n_all * fraction))))
+
+    quotas = {key: sizes[key] * fraction for key in keys}
+    alloc = {key: min(sizes[key], int(np.floor(quotas[key]))) for key in keys}
+    tie_break = {key: float(rng.random()) for key in keys}
+    by_remainder = sorted(
+        keys, key=lambda key: (quotas[key] - np.floor(quotas[key]), tie_break[key]), reverse=True
+    )
+    remaining = n_total - sum(alloc.values())
+    while remaining > 0:
+        progressed = False
+        for key in by_remainder:
+            if remaining == 0:
+                break
+            if alloc[key] < sizes[key]:
+                alloc[key] += 1
+                remaining -= 1
+                progressed = True
+        if not progressed:
+            break
+
     selected: list[str] = []
-    for trips in groups.values():
-        trips_sorted = sorted(set(trips))
+    for key in keys:
+        trips_sorted = sorted(set(groups[key]))
         rng.shuffle(trips_sorted)
-        k = max(1, int(round(len(trips_sorted) * fraction)))
-        selected.extend(trips_sorted[:k])
+        selected.extend(trips_sorted[: alloc[key]])
 
     return sorted(set(selected))
 

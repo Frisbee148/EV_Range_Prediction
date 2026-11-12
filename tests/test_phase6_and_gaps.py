@@ -7,7 +7,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.data.dataset import load_trip_splits
+from src.data.dataset import load_trip_splits, prepare_datasets
+from src.data.degradation import subsample_training_trips
+from src.evaluation.evaluate import evaluate_baselines
 from src.physics.verify_against_sumo import (
     compare_to_sumo_battery,
     parse_sumo_battery_xml,
@@ -208,3 +210,50 @@ def test_experiment_runner_smoke_e1_and_e7(tmp_path: Path):
     assert "selected_lambda_max" in e7_out
     assert (tmp_path / "results" / "metrics" / "E7.json").exists()
     assert (tmp_path / "results" / "plots" / "E7_lambda_sweep.png").exists()
+
+
+def test_ablation_fractions_produce_distinct_trip_counts_and_base0_range_is_accurate():
+    """Regression test for Issues 2 and 3:
+    - 5% and 10% ablation fractions must produce distinct trip counts (8 vs 17 of 168).
+    - Base-0 evaluated with test_trip_frames must match Definition B range (< 1 km MAE),
+      and window-only Base-0 must stay bounded (<= 1000 km).
+    """
+    df = pd.read_csv(DATASET_PATH)
+    splits = load_trip_splits(SPLITS_PATH)
+
+    trips_5 = subsample_training_trips(df, splits["train"], fraction=0.05, seed=0)
+    trips_10 = subsample_training_trips(df, splits["train"], fraction=0.10, seed=0)
+    trips_25 = subsample_training_trips(df, splits["train"], fraction=0.25, seed=0)
+    assert len(trips_5) == round(len(splits["train"]) * 0.05)
+    assert len(trips_10) == round(len(splits["train"]) * 0.10)
+    assert len(trips_5) < len(trips_10) < len(trips_25)
+    assert trips_5 != trips_10
+
+    small_splits = {
+        "train": splits["train"][:6],
+        "val": splits["val"][:3],
+        "test": splits["test"][:3],
+    }
+    sub_df = df[
+        df["trip_id"].isin(
+            set(small_splits["train"]) | set(small_splits["val"]) | set(small_splits["test"])
+        )
+    ].copy()
+    prepared = prepare_datasets(sub_df, small_splits, t_seq=60, stride=15)
+    test_df = sub_df[sub_df["trip_id"].isin(set(small_splits["test"]))].copy()
+
+    eval_full = evaluate_baselines(
+        prepared.train_dataset.windows,
+        prepared.test_dataset.windows,
+        vehicles_yaml=VEHICLES_PATH,
+        test_trip_frames=test_df,
+    )
+    assert eval_full["Base-0"]["metrics"]["range_mae_km"] < 0.1
+
+    eval_win = evaluate_baselines(
+        prepared.train_dataset.windows,
+        prepared.test_dataset.windows,
+        vehicles_yaml=VEHICLES_PATH,
+    )
+    assert eval_win["Base-0"]["metrics"]["range_mae_km"] < 1000.0
+
