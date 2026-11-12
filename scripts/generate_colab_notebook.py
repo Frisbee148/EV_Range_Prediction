@@ -319,7 +319,7 @@ for frac in FRACTIONS_TO_RUN:
             res = Trainer(cfg, prepared, root_dir=PROJECT_ROOT).fit(run_id=run_id, save_artifacts=True)
             ablation_runs[frac][model_id].append(res.test_metrics)
             print(
-                f"  [{run_id}] trips={len(prepared.train_trips):3d} best_ep={res.best_epoch:2d}/{res.epochs_run:2d} "
+                f"  [{run_id}] trips={len(prepared.split_ids['train']):3d} best_ep={res.best_epoch:2d}/{res.epochs_run:2d} "
                 f"Range MAE={res.test_metrics['range_mae_km']:6.2f} km | "
                 f"Power MAE={res.test_metrics['power_mae_kw']:5.2f} kW | "
                 f"Res RMS={res.test_metrics['residual_rms']:.5f}"
