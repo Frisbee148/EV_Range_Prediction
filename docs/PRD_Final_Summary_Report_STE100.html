@@ -644,6 +644,62 @@ Table 3 documents all 29 schema attributes of the primary training dataset (<cod
   </tbody>
 </table>
 
+<h3>5.1 Concrete Example of a 1-Second Telemetry Row</h3>
+<p>
+To demonstrate the exact telemetry representation processed by the neural network pipeline, Table 3B presents an actual single row extracted from <code>data/processed/sumo_most_1hz.csv.gz</code> (row index 25,000, corresponding to <code>t = 400.0 s</code> of trip <code>bmw_i3_60ah__highway__01</code> during steady uphill highway driving).
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Feature Column</th>
+      <th>Actual Value</th>
+      <th>Physical Interpretation &amp; Role in Model</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td rowspan="4"><strong>1. Metadata &amp; Splitting Keys</strong></td><td><code>timestamp</code></td><td><code>400.0 s</code></td><td>Elapsed trip time (400 seconds into the 600-second driving trip).</td></tr>
+    <tr><td><code>vehicle_id</code></td><td><code>"bmw_i3_60ah"</code></td><td>Vehicle model identifier joining to <code>configs/vehicles.yaml</code>.</td></tr>
+    <tr><td><code>trip_id</code></td><td><code>"bmw_i3_60ah__highway__01"</code></td><td>Unique trip identifier used to enforce trip-level leak-free data splitting.</td></tr>
+    <tr><td><code>scenario</code></td><td><code>"highway"</code></td><td>Driving regime (used for cross-regime generalization in E6).</td></tr>
+    <tr><td rowspan="7"><strong>2. Dynamic Kinematics &amp; Environment (LSTM Inputs)</strong></td><td><code>speed_mps</code></td><td><code>12.06 m/s</code></td><td>Current speed (approx. 43.4 km/h); drives aerodynamic drag (&prop; v&sup2;).</td></tr>
+    <tr><td><code>accel_mps2</code></td><td><code>-0.17 m/s&sup2;</code></td><td>Current acceleration; drives inertial force (m &middot; a).</td></tr>
+    <tr><td><code>grade_rad</code></td><td><code>0.0912 rad</code></td><td>Road slope (approx. +5.2&deg; uphill incline); drives gravitational resistance.</td></tr>
+    <tr><td><code>elevation_m</code></td><td><code>199.99 m</code></td><td>Current absolute altitude along Monaco topography.</td></tr>
+    <tr><td><code>distance_m</code></td><td><code>3989.36 m</code></td><td>Cumulative distance travelled from trip start.</td></tr>
+    <tr><td><code>stop_flag</code></td><td><code>0</code></td><td>Binary indicator (0 = in motion, 1 = stationary at junction/signal).</td></tr>
+    <tr><td><code>ambient_temp_c</code></td><td><code>21.0 &deg;C</code></td><td>Ambient temperature governing HVAC auxiliary power draw.</td></tr>
+    <tr><td rowspan="9"><strong>3. Static Vehicle Parameters (Window-Broadcast Inputs)</strong></td><td><code>mass_kg</code></td><td><code>1417.5 kg</code></td><td>Equivalent test weight of vehicle + driver.</td></tr>
+    <tr><td><code>drag_coefficient</code></td><td><code>0.29</code></td><td>Aerodynamic drag coefficient C_d.</td></tr>
+    <tr><td><code>frontal_area_m2</code></td><td><code>2.038 m&sup2;</code></td><td>Effective frontal cross-sectional area A.</td></tr>
+    <tr><td><code>rolling_resistance</code></td><td><code>0.00733</code></td><td>Tire rolling friction coefficient C_rr derived from EPA coastdown Target-A.</td></tr>
+    <tr><td><code>battery_capacity_j</code></td><td><code>67,680,000 J</code></td><td>Total usable battery pack energy (18.8 kWh).</td></tr>
+    <tr><td><code>drivetrain_efficiency</code></td><td><code>0.90</code></td><td>Inverter and electric motor propulsion efficiency (&eta;_dt).</td></tr>
+    <tr><td><code>regen_efficiency</code></td><td><code>0.65</code></td><td>Kinetic energy recovery efficiency during deceleration (&eta;_rg).</td></tr>
+    <tr><td><code>aux_power_base_w</code></td><td><code>500.0 W</code></td><td>Baseline continuous electrical draw for vehicle electronics and cabin climate.</td></tr>
+    <tr><td><code>rotating_mass_factor</code></td><td><code>1.04</code></td><td>Rotational inertia correction factor (&lambda;_rot).</td></tr>
+    <tr><td rowspan="5"><strong>4. Powertrain Variables &amp; Prediction Targets</strong></td><td><code>p_wheel_w</code></td><td><code>14,030.4 W</code></td><td>Total mechanical power required at the road-tire contact patch.</td></tr>
+    <tr><td><code>p_batt_w</code></td><td><code>16,089.3 W</code></td><td><strong>Target Head 2:</strong> Battery electrical power draw (16.09 kW discharge).</td></tr>
+    <tr><td><code>soc</code></td><td><code>0.5800</code></td><td><strong>Target Head 1:</strong> Battery State of Charge fraction (58.00% remaining).</td></tr>
+    <tr><td><code>energy_remaining_j</code></td><td><code>39,255,116.7 J</code></td><td>Total usable battery energy remaining in pack.</td></tr>
+    <tr><td><code>range_b_m</code></td><td><code>77,498.8 m</code></td><td><strong>Target Head 3:</strong> Oracle remaining range (approx. 77.5 km).</td></tr>
+    <tr><td rowspan="4"><strong>5. Masks &amp; Degradation Flags</strong></td><td><code>range_valid_mask</code></td><td><code>1</code></td><td>1 = remaining range is defined and supervised; 0 = warm-up exclusion.</td></tr>
+    <tr><td><code>soc_label_mask</code></td><td><code>1</code></td><td>1 = SOC label supervised at this timestep; 0 = masked (for sparse E3 runs).</td></tr>
+    <tr><td><code>range_a_m</code></td><td><code>60,159.5 m</code></td><td>Instantaneous constant-consumption baseline range estimate.</td></tr>
+    <tr><td><code>noise_seed</code></td><td><code>261</code></td><td>Reproducibility seed for deterministic sensor noise injection.</td></tr>
+  </tbody>
+</table>
+
+<h3>5.2 Two-Tier Seeding Architecture: Simulation vs. Machine Learning Seeds</h3>
+<p>
+The project enforces a strict architectural separation between two distinct classes of random seeds:
+</p>
+<ol>
+  <li><strong>Offline Simulation Seed (<code>seed = 42</code>):</strong> Configured in <code>configs/simulation.yaml</code>, this seed governs the microscopic traffic simulation (SUMO) and IDM kinematics over Monaco topography. It determines the randomized route paths across MoST edges, driver car-following variability, initial battery states of charge (<code>SOC_0 &sim; U[0.75, 0.95]</code>), and road gradient trajectories. This procedure ran <em>once offline</em> to produce the frozen master dataset (<code>sumo_most_1hz.csv.gz</code>).</li>
+  <li><strong>Online Experimental Seeds (<code>seed &isin; {0, 1, 2, 3, 4}</code>):</strong> Configured per PRD §16.10 in <code>src/training/seed.py</code>, these seeds govern the machine learning training pipeline. For each seed <code>s</code>, the runtime deterministically initializes Python, NumPy, PyTorch CPU/GPU, and CUDA RNGs. In the Data Ablation experiment (<code>E2</code>), <code>seed = s</code> drives the stratified trip subsampler (<code>ablation_seed = s</code>) to select distinct randomized subsets of training trips. In addition, it controls PyTorch weight initialization, mini-batch shuffling, and dropout regularization.</li>
+</ol>
+
 <!-- ===================================================================== -->
 <div class="page-break"></div>
 <h2>6. Neural Network Architecture &amp; Self-Consistency Loss (PRD §12–§15)</h2>
@@ -840,6 +896,18 @@ Experiment E7 sweeps <code>lambda_max</code> over the log-spaced grid <code>{0.0
   <div class="diagram-caption">Figure 5: E2 Data-Ablation Curve Across Training Trip Fractions (5%, 10%, 25%, 50%, 100%).</div>
 </div>
 
+<div class="callout callout-info">
+  <strong>Methodological Clarification &mdash; Instance-Level Ablation vs. Dimension Ablation:</strong>
+  <ul>
+    <li><strong>Ablation Axis (Instance vs. Dimension):</strong> Experiment E2 performed data ablation strictly along the <em>instance / sample dimension</em> (reducing training trips from 168 down to 8), <strong>not along feature dimensions</strong>. All 12 input features (7 dynamic + 5 unique physical scalers) remained present across every run. Dimension ablation was intentionally not conducted so that the network's input capacity remained identical across all comparisons, ensuring any performance difference was attributable solely to the physics loss and sample volume.</li>
+    <li><strong>Zero Data Leakage (Trip-Level Splitting):</strong> Time-series data suffers from severe temporal autocorrelation. If consecutive rows or overlapping sliding windows are randomly split into train/val/test, future seconds leak into the past, artificially boosting evaluation metrics. To prevent this, data was split strictly at the <em>whole-trip level</em> (<code>trip_id</code>). The automated test <code>tests/test_no_leakage.py</code> mathematically asserts that the sets of training, validation, and test trips are pairwise disjoint.</li>
+    <li><strong>Stratified Proportional Sampling:</strong> Naive random trip subsampling could inadvertently draw only Nissan Leaf trips or flat urban trips. In <code>src/data/degradation.py</code>, <code>subsample_training_trips()</code> stratifies trips across all <code>(vehicle_id, scenario)</code> tuples using the largest-remainder method, ensuring balanced representation of all vehicle weights and driving cycles at every fraction.</li>
+    <li><strong>Multi-Seed Monte Carlo Resampling:</strong> To eliminate random sampling bias, each fraction {5%, 10%, 25%, 50%, 100%} was evaluated across <strong>5 independent seeds</strong> (<code>seed &isin; {0, 1, 2, 3, 4}</code>). Each seed drew a different randomized subset of trips, and both Model A and Model B were trained on the identical drawn subset.</li>
+    <li><strong>Strict Train-Only Normalization:</strong> <code>StandardScaler</code> was fitted exclusively on the subsampled training trip rows (<code>scalers.fit(train_df)</code>), preventing test distribution statistics from leaking into model weights.</li>
+    <li><strong>Cross-Fold Validation (E5):</strong> Complementing E2's sample ablation, Experiment E5 executed an explicit <strong>4-Fold Cross-Validation (Leave-One-Vehicle-Out)</strong> across all 4 vehicle architectures to prove generalization to unseen EV platforms.</li>
+  </ul>
+</div>
+
 <h3>7.4 Experiment E3 (RQ1 Directly): Sparse SOC Supervision (<code>k &isin; {1, 10, 60, 300}</code>, 40 Runs)</h3>
 <table>
   <thead>
@@ -868,6 +936,7 @@ Experiment E7 sweeps <code>lambda_max</code> over the log-spaced grid <code>{0.0
 </table>
 <p>
 <strong>Analysis (RQ1):</strong> When SOC labels are provided every <code>k = 10 s</code>, Model B beats Model A on <strong>every single metric</strong>: Range MAE improves by <strong>8.23 km</strong> (<code>121.65</code> vs. <code>129.88 km</code>), Range RMSE improves by <strong>24.43 km</strong>, Range MAPE improves by <strong>15.21%</strong>, SOC MAE improves to <code>11.77 pp</code>, Power MAE improves to <code>1.75 kW</code>, and Residual RMS is cut by more than half (<code>0.001954</code> vs. <code>0.004152</code>). At extreme sparsity (<code>k = 60 s</code> and <code>k = 300 s</code>, where 59 out of 60 timesteps in each window have no SOC label), Model A's energy-balance residual explodes by <strong>3.53&times;</strong> (<code>0.012477</code>), whereas Model B's label-free residual <code>(L2)</code> bridges the unlabelled timesteps, keeping Residual RMS <strong>3.19&times; lower</strong> (<code>0.003914</code>) and reducing Range MAE seed variance by <strong>3&times;</strong> (<code>&plusmn;4.93 km</code> vs. <code>&plusmn;14.54 km</code>).
+<em>Definition Note:</em> In E3, "sparsity" designates <strong>temporal label sparsity</strong> (infrequent BMS telemetry reporting across time), distinct from E2's instance ablation (fewer trips) or feature ablation (fewer channels).
 </p>
 
 <!-- ===================================================================== -->
